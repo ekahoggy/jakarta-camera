@@ -1,4 +1,4 @@
-# WVI BACKEND
+# Jakarta Camera
 This project was generated with Laravel Blade
 ## Installation Package
 run `composer install` and waiting for installed packages <br>
