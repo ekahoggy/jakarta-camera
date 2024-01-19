@@ -1,0 +1,257 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.sub-text-header {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 100;
+}
+
+.user-picture-list {
+    border-radius: 50% !important;
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.card-footer {
+    padding: 0 !important;
+}
+
+.border-bottom-none {
+    border-bottom: none !important;
+}
+
+.card-statistic-2 {
+    border-radius: 8px;
+    background: var(--main-white, #FFF);
+    box-shadow: 0px 4px 4px 0px rgba(186, 186, 186, 0.25);
+}
+
+.roles_access_index {
+    padding: 5px;
+    border-radius: 6px;
+    background: var(--grey-100, #F2F4F7);
+    color: var(--grey-500, #667085);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    min-width: 100px;
+    max-width: 120px;
+    text-align: center;
+    margin: 5px;
+}
+
+.drop-zone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    /* max-width: 350px; */
+    width: 100%;
+}
+
+.drop-zone-text {
+    color: #777;
+}
+
+.image-thumbnail {
+    max-width: 350px;
+    width: 100%;
+    height: auto;
+}
+
+#image-preview {
+    max-width: 350px !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.txt-dashboard {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    padding-bottom: 18px !important;
+    padding-left: 25px !important;
+
+    .dashboard-child {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+    }
+}
+
+.main-sidebar {
+    overflow: visible !important;
+}
+
+.dashboard-title {
+    color: #475261 !important;
+    font-size: 20px !important;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.recap-title {
+    color: #707070;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.recap-values {
+    color: #475261;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.intro .limited {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 75ch;
+}
+
+.user-login {
+    padding-top: 15px;
+    font-size: 16px;
+    font-style: normal;
+
+    .name {
+        font-weight: 700;
+    }
+
+    .role {
+        font-weight: 300;
+    }
+}
+
+.log-activity {
+    padding-top: 10px;
+    padding-left: 10px;
+
+    .loguser {
+        padding-left: 15px;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+    .bar {
+        list-style: none;
+        padding-left: 15px !important;
+    }
+
+    .bar>li {
+        position: relative;
+        color: #ADC32B;
+    }
+
+    .bar>li:before {
+        content: '\25CF';
+        margin-right: 10px;
+        font-size: 20px;
+    }
+
+    .bar>li:after {
+        position: absolute;
+        left: 0;
+        top: 0;
+        content: '';
+        border-left: 2px solid #ADC32B;
+        margin-left: 5px;
+        height: 100%;
+    }
+
+    .bar>li:first-of-type:after {
+        top: 50%;
+    }
+
+    .bar>li:last-of-type:after {
+        top: -50%;
+    }
+
+    .txt-log {
+        color: #475261 !important;
+    }
+}
+
+.remove-image {
+    display: none;
+    position: absolute;
+    right: 0px;
+    text-decoration: none;
+    font: 700 21px/20px sans-serif;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    -webkit-transition: background 0.5s;
+    transition: background 0.5s;
+}
+
+.remove-image:hover {
+    background: #E54E4E;
+}
+
+.card-payment {
+    width: 18rem;
+    border-radius: 10px;
+    border: 1px solid var(--grey-200, #EAECF0);
+
+    .payment {
+        height: 150px !important;
+        border-bottom: none !important;
+        justify-content: center !important;
+    }
+
+    .img-payment {
+        max-width: 100px !important;
+    }
+
+    .payment-name {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+    }
+
+    .payment-note {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 15px;
+    }
+
+    .btn-payment-detail {
+        width: 100%;
+        background: var(--orange-100, #FFEAD5);
+        color: var(--wvi-primary, #F98341);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+    }
+
+    .btn-payment-detail:hover {
+        color: white !important;
+    }
+}
+
+.modal-backdrop {
+    z-index: 999 !important;
+}
+
+.donation-recap {
+    border-radius: 8px !important;
+    border: 1px solid var(--grey-200, #EAECF0) !important;
+    background: #FFF !important;
+}
