@@ -52,6 +52,25 @@
                                             <td></td>
                                         </tr>
                                         <tr>
+                                            <td>Kategori</td>
+                                            <td class="text-center">
+                                                <input type="checkbox" id="kategori_index" name="kategori_index" value="1"
+                                                    @if ($model->access->kategori_index == 1) checked @endif>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox" id="kategori_create" name="kategori_create"
+                                                    value="1" @if ($model->access->kategori_create == 1) checked @endif onchange="checkInduk('kategori_index', 'kategori_create')">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox" id="kategori_update" name="kategori_update"
+                                                    value="1" @if ($model->access->kategori_update == 1) checked @endif onchange="checkInduk('kategori_index', 'kategori_update')">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox" id="kategori_delete" name="kategori_delete"
+                                                    value="1" @if ($model->access->kategori_delete == 1) checked @endif onchange="checkInduk('kategori_index', 'kategori_delete')">
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>Donasi</td>
                                             <td class="text-center">
                                                 <input type="checkbox" id="donasi_index" name="donasi_index" value="1"

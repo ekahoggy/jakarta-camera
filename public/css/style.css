@@ -1012,7 +1012,7 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .card.card-primary {
-  border-top: 2px solid #F98341;
+  border-top: 2px solid #007bff;
 }
 
 .card.card-secondary {
@@ -2001,8 +2001,8 @@ h6 .badge {
 .btn-primary,
 .btn-primary.disabled {
   box-shadow: 0 2px 6px #acb5f6;
-  background-color: #F98341;
-  border-color: #F98341;
+  /* background-color: #F98341;
+  border-color: #F98341; */
 }
 
 .btn-primary:focus,

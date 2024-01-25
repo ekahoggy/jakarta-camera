@@ -107,18 +107,33 @@
                     </a>
                 </li>
             @endif
-            @if (session('roles')->donasi_index === 1)
-                <li>
-                    <a href="{{ route('donasi.index') }}"
-                        class="nav-link {{ Request::is('donasi/*') ? 'active' : '' }}">
+            @if (session('roles')->user_index === 1)
+                <li class="dropdown">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M16.0004 12C18.7604 12 21.0004 9.76 21.0004 7C21.0004 4.24 18.7604 2 16.0004 2C13.2404 2 11.0004 4.24 11.0004 7C11.0004 9.76 13.2404 12 16.0004 12ZM21.4504 17.6C21.0604 17.2 20.5704 17 20.0004 17H13.0004L10.9204 16.27L11.2504 15.33L13.0004 16H15.8004C16.1504 16 16.4304 15.86 16.6604 15.63C16.8904 15.4 17.0004 15.12 17.0004 14.81C17.0004 14.27 16.7404 13.9 16.2204 13.69L8.95037 11H7.00037V20L14.0004 22L22.0304 19C22.0404 18.47 21.8404 18 21.4504 17.6ZM5.00037 11H0.984375V22H5.00037V11Z"
-                                fill="white" />
+                            <g clip-path="url(#clip0_1991_2750)">
+                                <path
+                                    d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V19C4 19.55 4.45 20 5 20H19C19.55 20 20 19.55 20 19V18C20 15.34 14.67 14 12 14Z"
+                                    fill="white" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_1991_2750">
+                                    <rect width="24" height="24" fill="white" />
+                                </clipPath>
+                            </defs>
                         </svg>
-                        <span>Donations</span>
+
+                        <span>Master</span>
                     </a>
+                    <ul class="dropdown-menu" style="display: none;">
+                        @if (session('roles')->user_index === 1)
+                            <li><a class="nav-link" href="{{ route('kategori.index') }}">Kategori</a></li>
+                        @endif
+                        @if (session('roles')->role_index === 1)
+                            <li><a class="nav-link" href="{{ route('kategori.index') }}">Produk</a></li>
+                        @endif
+                    </ul>
                 </li>
             @endif
             @if (session('roles')->page_index === 1)

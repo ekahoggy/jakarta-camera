@@ -2401,3 +2401,12 @@ tr:first-child>td>.fc-day-grid-event {
     margin-bottom: 50px;
   }
 }
+
+.empty-data {
+  text-align: center !important;
+  font-size: 20px !important;
+  font-weight: bold;
+  img{
+    width: 150px !important;
+  }
+}

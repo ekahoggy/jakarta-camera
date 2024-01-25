@@ -44,6 +44,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+                            @if($list->links() == null)
+                            <div class="gallery gallery-md empty-data">
+                                <img src="{{url('/img/images/empty_data.png')}}" alt="Empty Data">
+                                <p>Data Kosong</p>
+                            </div>
+                            @else
                             <div class="gallery gallery-md row d-flex">
                                 @foreach ($list as $item)
                                     <div id="divAllCheckbox" class="col-md-2" style="max-width: 200px;">
@@ -51,10 +57,10 @@
                                             <input type="checkbox" class="custom-control-input" name="itemcheckbox"
                                                 id="checkdelete-{{ $item->id }}" value="{{ $item->id }}">
                                         </div>
-                                        <div class="gallery-item" data-image="{{ $item->link_image }}"
-                                            data-title="{{ $item->file }}" href="{{ $item->link_image }}"
+                                        <div class="gallery-item" data-image="{{$item->link_image}}"
+                                            data-title="{{ $item->file }}" href="{{$item->link_image}}"
                                             title="{{ $item->file }}"
-                                            style="background-image: url(&quot;{{ $item->link_image }}&quot;);">
+                                            style="background-image: url(&quot;{{$item->link_image}}&quot;);">
                                         </div>
                                         <a class="remove-image" href="#" onclick="hapus({{ $item->id }});"
                                             style="display: inline;">
@@ -70,6 +76,7 @@
                                     </div>
                                 @endforeach
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>

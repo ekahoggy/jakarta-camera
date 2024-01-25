@@ -47,6 +47,10 @@ class RoleController extends Controller
         try {
             $arrPermision = [
                 'dashboard_index'   => request()->dashboard_index ? 1 : 0,
+                'kategori_index'      => request()->kategori_index ? 1 : 0,
+                'kategori_create'     => request()->kategori_create ? 1 : 0,
+                'kategori_update'     => request()->kategori_update ? 1 : 0,
+                'kategori_delete'     => request()->kategori_delete ? 1 : 0,
                 'donasi_index'      => request()->donasi_index ? 1 : 0,
                 'donasi_create'     => request()->donasi_create ? 1 : 0,
                 'donasi_update'     => request()->donasi_update ? 1 : 0,
@@ -113,6 +117,10 @@ class RoleController extends Controller
         try {
             $arrPermision = [
                 'dashboard_index'   => request()->dashboard_index ? 1 : 0,
+                'kategori_index'      => request()->kategori_index ? 1 : 0,
+                'kategori_create'     => request()->kategori_create ? 1 : 0,
+                'kategori_update'     => request()->kategori_update ? 1 : 0,
+                'kategori_delete'     => request()->kategori_delete ? 1 : 0,
                 'donasi_index'      => request()->donasi_index ? 1 : 0,
                 'donasi_create'     => request()->donasi_create ? 1 : 0,
                 'donasi_update'     => request()->donasi_update ? 1 : 0,

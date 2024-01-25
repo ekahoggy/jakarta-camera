@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
         <div class="section-action d-flex justify-content-between">
-            <button class="btn btn-warning" style="cursor: pointer;" onclick="document.getElementById('image-input-modal').click()">Upload FileLocal</button>
+            <button class="btn btn-warning" style="cursor: pointer;" onclick="document.getElementById('image-input-modal').click()">Upload File Local</button>
             <input type="file" name="file" id="image-input-modal" accept="image/*" onchange="saveImg(event)" class="hidden" />
 
             <div class="col-4">

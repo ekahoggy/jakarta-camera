@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\KegiatanDraftController;
 use App\Http\Controllers\MediaController;
@@ -54,6 +55,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('role.edit');
         Route::post('/update/{id}', [RoleController::class, 'update'])->name('role.update');
         Route::delete('/delete/{id}', [RoleController::class, 'destroy'])->name('role.destroy');
+    });
+
+    Route::prefix('kategori')->group(function (){
+        Route::get('/', [KategoriController::class, 'index'])->name('kategori.index');
+        Route::get('/create', [KategoriController::class, 'create'])->name('kategori.create');
+        Route::post('/store', [KategoriController::class, 'store'])->name('kategori.store');
+        Route::get('/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
+        Route::post('/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+        Route::delete('/delete/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
     });
 
     Route::prefix('testimoni')->group(function (){

@@ -54,6 +54,24 @@
                                             <td></td>
                                         </tr>
                                         <tr>
+                                            <td>Kategori</td>
+                                            <td class="text-center">
+                                                <input type="checkbox" id="kategori_index" name="kategori_index" value="1">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox" id="kategori_create" name="kategori_create" onchange="checkInduk('kategori_index', 'kategori_create')"
+                                                    value="1">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox" id="kategori_update" name="kategori_update" onchange="checkInduk('kategori_index', 'kategori_update')"
+                                                    value="1">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox" id="kategori_delete" name="kategori_delete" onchange="checkInduk('kategori_index', 'kategori_delete')"
+                                                    value="1">
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>Donasi</td>
                                             <td class="text-center">
                                                 <input type="checkbox" id="donasi_index" name="donasi_index" value="1">

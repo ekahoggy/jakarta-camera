@@ -20,6 +20,7 @@
         "maatwebsite/excel": "^3.1",
         "midtrans/midtrans-php": "^2.5",
         "phpoffice/phpspreadsheet": "^1.29",
+        "ramsey/uuid": "^4.7",
         "realrashid/sweet-alert": "^7.0"
     },
     "require-dev": {
@@ -36,7 +37,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "laravel/dusk"
+            ]
         }
     },
     "autoload": {

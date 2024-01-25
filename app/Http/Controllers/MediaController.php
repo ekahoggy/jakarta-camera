@@ -23,22 +23,20 @@ class MediaController extends Controller
 {
     public function index(Request $request ) {
         $model = Media::orderBy('created_at', 'DESC');
-        $url = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/';
-        
+        // $url = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/';
+        $url = '';
         if(isset($request->search)){
             $model->where('file', 'like', '%' . $request->search . '%');
         }
 
         if(isset($request->date)){
             $request->date = date('Y-m', strtotime('01-'.$request->date));
-            // dd($request->date);
             $model->where('created_at', 'like', '%' . $request->date . '%');
         }
 
         $model = $model->paginate(20);
-
         foreach ($model as $key => $value) {
-            $value->link_image = $url . $value->file;
+            $value->link_image = url('img/media/originals/'.$value->file);
         }
         return view('page.media.index', ['list' => $model]);
     }
@@ -58,17 +56,19 @@ class MediaController extends Controller
                 // Get the uploaded file
                 $uploadedImage = $request->file('file');
                 // Generate a unique filename
-                $filename = uniqid() . '.' . $uploadedImage->getClientOriginalExtension();
-                // Store the original image on S3
-                Storage::disk('s3')->put('originals/' . $filename, file_get_contents($uploadedImage));
+                
+                $filename = Str::random();
+                $original = $filename . '.' . $uploadedImage->getClientOriginalExtension();
+                $request->file->move(public_path('img/media/originals/'), $original);
+                
                 // Create a WebP version of the image
-                $webpImage = Image::make($uploadedImage)->encode('webp', 75);
-                $filePath = 'webp/' . $filename . '.webp';
-                // Store the WebP image on S3
-                Storage::disk('s3')->put($filePath, (string)$webpImage);
+                // $image = Image::make($request->file('file'))->encode('webp'); 
+                // $imageName = $filename.'.webp'; 
+                // $image->save(public_path('img/kategori/webp/'. $imageName)); 
+                $path = 'kategori/originals/'. $original;
 
                 $payload = [
-                    "file" => $filePath,
+                    "file" => $original,
                     "is_status" => 1,
                 ];
                 $media = Media::create($payload);
@@ -83,7 +83,6 @@ class MediaController extends Controller
                 return redirect()->route('media.index')->with('success', 'Saved successfully.');
             }            
         } catch (Exception $e) {
-            dd($e);
             Alert::error('Error', 'There is an error.');
             return back();
         }
@@ -150,7 +149,7 @@ class MediaController extends Controller
         $result = $model->paginate(12);
 
         foreach ($result as $key => $value) {
-            $value->link_image = $url . $value->file;
+            $value->link_image = url('img/media/originals/'.$value->file);
         }
 
         return response()->json(['success' => true, "data" => $result, "paginate" => (string) $result->links()]);
@@ -164,13 +163,17 @@ class MediaController extends Controller
 
         try {
             if ($request->hasFile('file')) {
-                $file = $request->file('file');
-                $name = time() . $file->getClientOriginalName();
-                $filePath = 'galery_wvi/' . $name;
-                Storage::disk('s3')->put($filePath, file_get_contents($file));
+                $uploadedImage = $request->file('file');
+                // $name = time() . $file->getClientOriginalName();
+                // $filePath = 'galery_wvi/' . $name;
+                // Storage::disk('s3')->put($filePath, file_get_contents($file));
+
+                $filename = Str::random();
+                $original = $filename . '.' . $uploadedImage->getClientOriginalExtension();
+                $request->file->move(public_path('img/media/originals/'), $original);
 
                 $payload = [
-                    "file" => $filePath,
+                    "file" => $original,
                     "is_status" => 1,
                 ];
             }
