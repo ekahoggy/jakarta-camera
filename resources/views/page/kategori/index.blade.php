@@ -15,18 +15,19 @@
                     <table class="table table-striped table-md">
                         <tbody>
                             <tr class="bg-primary text-light">
-                                <th width="10%">Ikon</th>
                                 <th width="20%">Kategori</th>
+                                <th width="10%">Ikon</th>
                                 <th width="20%">Slug</th>
                                 <th>Keterangan</th>
                                 <th width="5%">Action</th>
                             </tr>
                             @foreach ($list as $key => $val)
                                 <tr>
-                                    <td class="align-middle">{{ $val->icon }}</td>
                                     <td class="align-middle">{{ $val->kategori }}</td>
+                                    <td class="align-middle"><img src="{{ url('img/media/originals/' . $val->icon) }}"
+                                            alt="icon {{ $val->kategori }}" width="50px"></td>
                                     <td class="align-middle">{{ $val->slug }}</td>
-                                    <td class="align-middle">{{$val->keterangan}}</td>
+                                    <td class="align-middle">{{ $val->keterangan }}</td>
                                     <td class="align-middle">
                                         <div class="d-flex align-items-center">
                                             <a href="{{ route('kategori.edit', $val->id) }}"

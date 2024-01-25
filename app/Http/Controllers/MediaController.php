@@ -35,9 +35,7 @@ class MediaController extends Controller
         }
 
         $model = $model->paginate(20);
-        foreach ($model as $key => $value) {
-            $value->link_image = url('img/media/originals/'.$value->file);
-        }
+
         return view('page.media.index', ['list' => $model]);
     }
 

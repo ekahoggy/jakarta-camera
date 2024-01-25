@@ -15,8 +15,15 @@ class Kategori extends Model
     protected $table = 'm_kategori';
 
     protected $fillable = [
+        'induk_id',
         'kategori',
+        'slug',
+        'icon',
         'keterangan'
+    ];
+
+    protected $casts = [
+        'id' => 'string'
     ];
 
     protected static function boot()
@@ -30,5 +37,9 @@ class Kategori extends Model
                 abort(500, $e->getMessage());
             }
         });
+    }
+
+    public function childs() {
+        return $this->hasMany('App\Models\Kategori','induk_id','id') ;
     }
 }

@@ -57,10 +57,10 @@
                                             <input type="checkbox" class="custom-control-input" name="itemcheckbox"
                                                 id="checkdelete-{{ $item->id }}" value="{{ $item->id }}">
                                         </div>
-                                        <div class="gallery-item" data-image="{{$item->link_image}}"
-                                            data-title="{{ $item->file }}" href="{{$item->link_image}}"
+                                        <div class="gallery-item" data-image="{{ url('img/media/originals/'.$item->file)}}"
+                                            data-title="{{ $item->file }}" href="{{ url('img/media/originals/'.$item->file)}}"
                                             title="{{ $item->file }}"
-                                            style="background-image: url(&quot;{{$item->link_image}}&quot;);">
+                                            style="background-image: url(&quot;{{ url('img/media/originals/'.$item->file)}}&quot;);">
                                         </div>
                                         <a class="remove-image" href="#" onclick="hapus({{ $item->id }});"
                                             style="display: inline;">

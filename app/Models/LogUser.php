@@ -22,6 +22,10 @@ class LogUser extends Model
         'updated_at'
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     protected static function boot()
     {
         parent::boot();
