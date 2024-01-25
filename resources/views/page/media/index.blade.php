@@ -62,7 +62,7 @@
                                             title="{{ $item->file }}"
                                             style="background-image: url(&quot;{{ url('img/media/originals/'.$item->file)}}&quot;);">
                                         </div>
-                                        <a class="remove-image" href="#" onclick="hapus({{ $item->id }});"
+                                        <a class="remove-image" href="#" onclick="hapus('{{ $item->id }}')"
                                             style="display: inline;">
                                             <svg style="width: 30px; height: 30px;" onclick="hapus({{ $item->id }});"
                                                 width="44" height="44" viewBox="0 0 44 44" fill="none"
@@ -169,7 +169,7 @@
             window.location.href = reload_url + param;
         }
 
-        function hapus(id) {
+        function hapus(id = '') {
             Swal.fire({
                 title: 'Confirmation',
                 text: 'Are you sure you want to delete this data?',

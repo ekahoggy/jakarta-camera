@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File; 
 use Exception;
 
 class MediaController extends Controller
@@ -97,39 +98,14 @@ class MediaController extends Controller
 
     public function destroy($id){
         $media = Media::findOrFail($id);
-
-        // user
-        $user = User::where('photo', $media->file)->get();
-        foreach ($user as $key => $value) {
-            User::findOrFail($value->id)->update(['photo' => null]);
+        // public_path('img/media/originals/')
+        $image_path = public_path("img/media/originals/{$media->file}");
+        if (File::exists($image_path)) {
+            //File::delete($image_path);
+            unlink($image_path);
         }
-        // event
-        $event = Kegiatan::where('photo', $media->file)->get();
-        foreach ($event as $key => $value) {
-            Kegiatan::findOrFail($value->id)->update(['photo' => null]);
-        }
-        // galeri
-        $galeri = GaleryPage::where('photo', $media->file)->get();
-        foreach ($galeri as $key => $value) {
-            GaleryPage::findOrFail($value->id)->delete();
-        }
-        // slider
-        $slider = Slider::where('picture', $media->file)->get();
-        foreach ($slider as $key => $value) {
-            Slider::findOrFail($value->id)->delete();
-        }
-        // testimoni
-        $testimoni = Testimoni::where('photo', $media->file)->get();
-        foreach ($testimoni as $key => $value) {
-            Testimoni::findOrFail($value->id)->update(['photo' => null]);
-        }
-        // page
-        $page = Page::where('picture', $media->file)->get();
-        foreach ($page as $key => $value) {
-            Page::findOrFail($value->id)->update(['picture' => null]);
-        }
-        
-        Storage::disk('s3')->delete($media->file);
+        // $news->delete();
+        // Storage::disk('s3')->delete($media->file);
         $media->delete();
 
         return response()->json(['success' => true]);

@@ -12,7 +12,7 @@
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-striped table-md">
+                    <table class="table table-striped table-md" id="table-kategori">
                         <tbody>
                             <tr class="bg-primary text-light">
                                 <th width="20%">Kategori</th>
@@ -59,6 +59,12 @@
         @if (session('error'))
             Swal.fire('Oopss', '{{ session('error') }}', 'error');
         @endif
+
+        $(function() {
+            $("#table-kategori").treeFy({
+                treeColumn: 1
+            });
+        });
 
         function hapus(id) {
             Swal.fire({

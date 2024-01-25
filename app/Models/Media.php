@@ -18,6 +18,10 @@ class Media extends Model
         'is_status'
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     protected static function boot()
     {
         parent::boot();
