@@ -17,7 +17,9 @@ class ProdukFoto extends Model
         'm_produk_id',
         'foto',
         'is_main',
-        'urutan'
+        'urutan',
+        'created_by',
+        'updated_by'
     ];
 
     protected $casts = [

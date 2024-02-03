@@ -37,4 +37,11 @@ class MoodStudioProvider extends ServiceProvider
 
         return $data;
     }
+
+    public static function skuProduk(){
+        $prefix = 'JC-';
+        $data = DB::table('m_produk')->selectRaw('*')->count();
+
+        return $prefix.$data + 1;
+    }
 }

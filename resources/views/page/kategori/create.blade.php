@@ -101,7 +101,7 @@
                     </div>
 
                     <div class="card-footer d-flex justify-content-end">
-                        <a href="{{ route('faq.index') }}" class="btn btn-sm btn-light mr-2">
+                        <a href="{{ route('kategori.index') }}" class="btn btn-sm btn-light mr-2">
                             <i class="fa fa-chevron-left"></i> &nbsp; Kembali
                         </a>
                         <button class="btn btn-sm btn-primary" type="submit">

@@ -40,17 +40,26 @@
                                     <div class="form-group">
                                         <label for="harga">Harga</label>
                                         <div class="input-container">
-                                            <i class="fa fa-envelope icon"></i>
-                                            <input class="input-field" type="number" placeholder="Masukkan Harga Produk"
-                                                name="harga" id="harga" value="{{ old('harga') }}">
+                                            <i class="icon">Rp</i>
+                                            <input class="form-control form-control-sm input-field" type="text"
+                                                placeholder="Masukkan Harga Produk" name="harga" id="harga"
+                                                value="{{ old('harga') }}" onkeyup="changeVal(this)">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12 bhs-indonesia">
                                     <div class="form-group">
-                                        <label>Keterangan Produk</label>
+                                        <label for="min_beli">Min Beli</label>
+                                        <input class="form-control form-control-sm" type="number" id="min_beli" name="min_beli"
+                                            value="{{ old('min_beli') }}" placeholder="Minimal Pembelian"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 bhs-indonesia">
+                                    <div class="form-group">
+                                        <label>Detail Produk</label>
                                         <div class="col-sm-12 p-0">
-                                            <textarea class="summernote" name="content"></textarea>
+                                            <textarea class="summernote" name="detail_produk"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -58,7 +67,7 @@
                                     <div class="form-group">
                                         <label class="required">Deskripsi Produk</label>
                                         <div class="col-sm-12 p-0">
-                                            <textarea class="summernote required" name="content"></textarea>
+                                            <textarea class="summernote required" name="deskripsi"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -74,6 +83,14 @@
                                                     <option value="{{ $item->id }}">{{ $item->kategori }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 bhs-indonesia">
+                                    <div class="form-group">
+                                        <label class="required">In Box Detail</label>
+                                        <div class="col-sm-12 p-0">
+                                            <textarea class="summernote required" name="in_box"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -111,10 +128,21 @@
                                 </div>
                                 <div class="col-md-12 bhs-indonesia">
                                     <div class="form-group">
-                                        <label for="link_blibli">Link Lazada</label>
+                                        <label for="link_blibli">Link Blibli</label>
                                         <input class="form-control form-control-sm" id="link_blibli" name="link_blibli"
                                             value="{{ old('link_blibli') }}" rows="5"
                                             placeholder="Masukkan Link Lazada" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 bhs-indonesia">
+                                    <div class="form-group">
+                                        <label for="tags">Tags Produk</label><p></p>
+                                        <div class="tags-input">
+                                            <ul id="tags"></ul>
+                                            <input class="form-control form-control-sm" type="text" id="input-tag"
+                                                placeholder="Masukkan tags produk" value="{{ old('tags') }}"/>
+                                            <input type="hidden" id="tags_value" name="tags">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -127,36 +155,18 @@
                                     <div class="upload__btn-box">
                                         <label class="upload__btn">
                                             <i class="fa fa-plus"> Upload Foto Produk</i>
-                                            <input type="file" multiple="" data-max_length="20"
-                                                class="upload__inputfile">
+                                            <input type="file" data-max_length="20"
+                                                class="upload__inputfile" name="foto_produk[]" multiple>
                                         </label>
                                     </div>
                                     <div class="upload__img-wrap"></div>
                                 </div>
-                                {{-- <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="drop-zone" id="drop-zone" data-target="#exampleModal"
-                                            data-toggle="modal">
-                                            <div class="drop-zone-text">
-                                                <i class="fas fa-cloud-upload-alt"></i>
-                                                <p>Drag and drop your image here</p>
-                                            </div>
-                                            <input type="text" name="icon" id="image-input" class="hidden" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 text-center">
-                                        <div id="image-preview" class="hidden bg-light text-center rounded p-2"
-                                            data-target="#exampleModal" data-toggle="modal">
-                                            <img id="preview-image" class="image-thumbnail" loading="lazy" />
-                                        </div>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                     </div>
 
                     <div class="card-footer d-flex justify-content-end">
-                        <a href="{{ route('faq.index') }}" class="btn btn-sm btn-light mr-2">
+                        <a href="{{ route('produk.index') }}" class="btn btn-sm btn-light mr-2">
                             <i class="fa fa-chevron-left"></i> &nbsp; Kembali
                         </a>
                         <button class="btn btn-sm btn-primary" type="submit">
@@ -211,6 +221,12 @@
                 document.getElementById("drop-zone").style.display = 'block';
                 previewContainer.classList.add('hidden');
             }
+        }
+
+        function changeVal(e) {
+            const val = $(e).val();
+            const updateVal = formatRupiah(val);
+            $(e).val(updateVal);
         }
 
         $(document).on('click', '.imgPersonal', function() {
@@ -299,5 +315,57 @@
                 $(this).parent().parent().remove();
             });
         }
+
+        // Get the tags and input elements from the DOM 
+        const tags = document.getElementById('tags');
+        const value_tags = document.getElementById('tags_value');
+        const input = document.getElementById('input-tag');
+
+        // Add an event listener for keydown on the input element 
+        input.addEventListener('keydown', function(event) {
+
+            // Check if the key pressed is 'Enter' 
+            if (event.key === 'Enter') {
+
+                // Prevent the default action of the keypress 
+                // event (submitting the form) 
+                event.preventDefault();
+
+                // Create a new list item element for the tag 
+                const tag = document.createElement('li');
+
+                // Get the trimmed value of the input element 
+                const tagContent = input.value.trim();
+
+                // If the trimmed value is not an empty string 
+                if (tagContent !== '') {
+
+                    // Set the text content of the tag to  
+                    // the trimmed value 
+                    tag.innerText = tagContent;
+
+                    // Add a delete button to the tag 
+                    tag.innerHTML += '<button class="delete-button">X</button>';
+
+                    // Append the tag to the tags list 
+                    tags.appendChild(tag);
+
+                    // Clear the input element's value 
+                    input.value = '';
+                    value_tags.value += tagContent + ', ';
+                }
+            }
+        });
+
+        // Add an event listener for click on the tags list 
+        tags.addEventListener('click', function(event) {
+
+            // If the clicked element has the class 'delete-button' 
+            if (event.target.classList.contains('delete-button')) {
+
+                // Remove the parent element (the tag) 
+                event.target.parentNode.remove();
+            }
+        });
     </script>
 @endsection

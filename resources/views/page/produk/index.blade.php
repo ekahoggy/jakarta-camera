@@ -15,19 +15,23 @@
                     <table class="table table-striped table-md" id="table-produk">
                         <tbody>
                             <tr class="bg-primary text-light">
-                                <th width="20%">Kategori</th>
-                                <th width="10%">Ikon</th>
-                                <th width="20%">Slug</th>
-                                <th>Keterangan</th>
+                                <th width="20%">Produk</th>
+                                <th width="10%">Kategori</th>
+                                <th width="10%">Foto</th>
+                                <th width="10%">Harga</th>
+                                <th width="5%">Type</th>
                                 <th width="5%">Action</th>
                             </tr>
                             @foreach ($list as $key => $val)
                                 <tr>
-                                    <td class="align-middle">{{ $val->kategori }}</td>
-                                    <td class="align-middle"><img src="{{ url('img/media/originals/' . $val->icon) }}"
-                                            alt="icon {{ $val->kategori }}" width="50px"></td>
-                                    <td class="align-middle">{{ $val->slug }}</td>
-                                    <td class="align-middle">{{ $val->keterangan }}</td>
+                                    <td class="align-middle">{{ $val->nama }} [{{ $val->sku }}]</td>
+                                    <td class="align-middle"><span class="label info">{{ $val->kategori }}</span></td>
+                                    <td class="align-middle"><img src="{{ url('img/media/product/' . $val->foto) }}"
+                                            alt="icon {{ $val->slug }}" width="50px"></td>
+                                    <td class="align-middle"><span class="currency">{{ $val->harga }}</span></td>
+                                    <td class="align-middle">
+                                        {{ $val->type }}
+                                    </td>
                                     <td class="align-middle">
                                         <div class="d-flex align-items-center">
                                             <a href="{{ route('produk.edit', $val->id) }}"
@@ -60,12 +64,6 @@
             Swal.fire('Oopss', '{{ session('error') }}', 'error');
         @endif
 
-        // $(function() {
-        //     $("#table-kategori").treeFy({
-        //         treeColumn: 1
-        //     });
-        // });
-
         function hapus(id) {
             Swal.fire({
                 title: 'Confirmation',
@@ -90,6 +88,14 @@
                         });
                 }
             });
+        }
+
+        let x = document.querySelectorAll(".currency");
+        for (let i = 0, len = x.length; i < len; i++) {
+            let num = Number(x[i].innerHTML)
+                .toLocaleString('en');
+            x[i].innerHTML = num;
+            x[i].classList.add("currSign");
         }
     </script>
 @endsection
