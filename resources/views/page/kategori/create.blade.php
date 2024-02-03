@@ -17,23 +17,6 @@
             <div class="card-body">
                 <form method="post" action="{{ route('kategori.store') }}" enctype="multipart/form-data">
                     @csrf
-                    <!--
-                                <div class="row">
-                                    <div class="col-6"></div>
-                                    <div class="col-6 text-right">
-                                        <div class="form-group">
-                                            <label class="custom-switch" style="cursor: pointer">
-                                                IDN &nbsp;&nbsp;
-                                                <input type="checkbox" name="language" id="language" class="custom-switch-input"
-                                                    onchange="switchLang()">
-                                                <span class="custom-switch-indicator"></span>
-                                                &nbsp;&nbsp;
-                                                EN
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                -->
                     <div class="row">
                         <div class="col-md-12 row">
                             <div class="col-md-3 bhs-indonesia">
@@ -178,26 +161,5 @@
                 sortField: 'text'
             });
         });
-
-        // function switchLang() {
-        //     const lang = document.getElementById('language').checked;
-        //     var eng = document.querySelectorAll(".bhs-english");
-        //     var indo = document.querySelectorAll(".bhs-indonesia");
-        //     if (lang === true) {
-        //         eng.forEach((element) => {
-        //             element.classList.remove('hidden');
-        //         });
-        //         indo.forEach((element) => {
-        //             element.classList.add('hidden');
-        //         });
-        //     } else {
-        //         eng.forEach((element) => {
-        //             element.classList.add('hidden');
-        //         });
-        //         indo.forEach((element) => {
-        //             element.classList.remove('hidden');
-        //         });
-        //     }
-        // }
     </script>
 @endsection

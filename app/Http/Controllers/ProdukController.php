@@ -22,12 +22,14 @@ class ProdukController extends Controller
         $foto = ProdukFoto::where('is_main', 1)->get();
         
         foreach ($model as $key => $value) {
+            $value->arr_tags = explode(',', $value->tags);
+            //get foto produk main
             foreach ($foto as $k => $v) {
                 if($v->m_produk_id === $value->id){
                     $value->foto = $v->foto;
                 }
             }
-
+            //get kategori
             foreach ($kategori as $i => $d) {
                 if($d->id === $value->m_kategori_id){
                     $value->kategori = $d->kategori;

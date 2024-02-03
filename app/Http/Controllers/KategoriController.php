@@ -58,4 +58,49 @@ class KategoriController extends Controller
             return back();
         }
     }
+
+    public function edit($id)
+    {
+        $model = Kategori::findOrFail($id);
+
+        return view('page.kategori.edit', ['model' => $model]);
+    }
+
+    public function destroy($id){
+        $role = Kategori::findOrFail($id);
+        $role->delete();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function update($id, Request $request)
+    {
+        try {
+            $url = env('IMG_URL').'img/media/originals/';
+            $img = str_replace($url, "", $request->icon);
+
+            $payload = [
+                "icon"          => $img,
+                "slug"          => MoodStudio::createSlug($request->kategori),
+                "kategori"      => $request->kategori,
+                "induk_id"      => $request->induk_id,
+                "keterangan"    => $request->keterangan,
+            ];
+
+            Kategori::find($id)->update($payload);
+
+            //log user
+            $log = [
+                'ref_name'  => 'm_kategori',
+                'ref_id'    => $id,
+                'notes'     => 'Mengubah kategori',
+                'created_by'=> auth()->user()->id
+            ];
+            LogUser::create($log);
+            return redirect()->route('kategori.index')->with('success', 'Saved successfully.');
+        } catch (Exception $e) {
+            Alert::error('Error', 'There is an error.');
+            return back();
+        }
+    }
 }

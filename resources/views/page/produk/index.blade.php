@@ -15,11 +15,12 @@
                     <table class="table table-striped table-md" id="table-produk">
                         <tbody>
                             <tr class="bg-primary text-light">
-                                <th width="20%">Produk</th>
+                                <th>Produk</th>
                                 <th width="10%">Kategori</th>
                                 <th width="10%">Foto</th>
                                 <th width="10%">Harga</th>
                                 <th width="5%">Type</th>
+                                <th>Tags</th>
                                 <th width="5%">Action</th>
                             </tr>
                             @foreach ($list as $key => $val)
@@ -30,7 +31,18 @@
                                             alt="icon {{ $val->slug }}" width="50px"></td>
                                     <td class="align-middle"><span class="currency">{{ $val->harga }}</span></td>
                                     <td class="align-middle">
-                                        {{ $val->type }}
+                                        @if ($val->type == 'J')
+                                            <span class="label info">Jual</span>
+                                        @else
+                                            <span class="label warning">Titip</span>
+                                        @endif
+                                    </td>
+                                    <td class="align-middle">
+                                        @foreach ($val->arr_tags as $tag)
+                                            @if ($tag !== '')
+                                                <span class="label success">{{ $tag }}</span>
+                                            @endif
+                                        @endforeach
                                     </td>
                                     <td class="align-middle">
                                         <div class="d-flex align-items-center">
