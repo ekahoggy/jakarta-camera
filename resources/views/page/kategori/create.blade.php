@@ -61,17 +61,11 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="col-md-12 bhs-indonesia">
-                                    {{-- <div class="form-group">
-                                        <label for="induk_id">Induk</label>
-                                        <input class="form-control form-control-sm" id="induk_id" name="induk_id"
-                                            value="{{ old('induk_id') }}" rows="5" placeholder="Masukkan induk_id" required>
-                                    </div> --}}
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label for="kategori">Induk Kategori</label>
                                             <select id="induk_id" name="induk_id" placeholder="Pilih induk kategori">
                                                 <option value="">Pilih induk kategori</option>
-                                                {{-- foreach list induk --}}
                                                 @foreach ($listInduk as $item)
                                                     <option value="{{ $item->id }}">{{ $item->kategori }}</option>
                                                 @endforeach

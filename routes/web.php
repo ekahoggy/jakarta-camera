@@ -12,6 +12,7 @@ use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\KegiatanDraftController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SiteController;
@@ -64,6 +65,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
         Route::post('/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
         Route::delete('/delete/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+    });
+
+    Route::prefix('produk')->group(function (){
+        Route::get('/', [ProdukController::class, 'index'])->name('produk.index');
+        Route::get('/create', [ProdukController::class, 'create'])->name('produk.create');
+        Route::post('/store', [ProdukController::class, 'store'])->name('produk.store');
+        Route::get('/edit/{id}', [ProdukController::class, 'edit'])->name('produk.edit');
+        Route::post('/update/{id}', [ProdukController::class, 'update'])->name('produk.update');
+        Route::delete('/delete/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
     });
 
     Route::prefix('testimoni')->group(function (){

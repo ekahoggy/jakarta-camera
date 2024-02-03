@@ -2938,7 +2938,7 @@ ul.nav-tabs li.nav-item a.nav-link.active i {
 /* 4.1 Misc */
 :root {
   /* Colors */
-  --primary: #F98341;
+  --primary: #007bff;
   --secondary: #34395e;
   --success: #47c363;
   --info: #3abaf4;
@@ -3662,7 +3662,7 @@ body.sidebar-mini .main-sidebar:after {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
   content: ' ';
   position: fixed;
-  background-color: #f98341;
+  background-color: #5150f8;
   width: 65px;
   height: 100%;
   left: 0;
@@ -3749,13 +3749,13 @@ body.sidebar-mini .main-sidebar .sidebar-menu>li>a.has-dropdown:after {
 
 body.sidebar-mini .main-sidebar .sidebar-menu>li.active>a {
   box-shadow: 0 4px 8px #acb5f6;
-  background-color: #F98341;
+  background-color: #5150f8;
   color: #fff;
 }
 
 body.sidebar-mini .main-sidebar .sidebar-menu>li ul.dropdown-menu {
   position: absolute;
-  background-color: #F98341;
+  background-color: #5150f8;
   color: #fff;
   left: 65px;
   top: 10px;
@@ -3768,13 +3768,13 @@ body.sidebar-mini .main-sidebar .sidebar-menu>li ul.dropdown-menu li>a:focus,
 body.sidebar-mini .main-sidebar .sidebar-menu>li ul.dropdown-menu li.active>a,
 body.sidebar-mini .main-sidebar .sidebar-menu>li ul.dropdown-menu li.active>a:hover {
   color: #fff;
-  background-color: #F98341 !important;
+  background-color: #5150f8 !important;
 }
 
 body.sidebar-mini .main-sidebar .sidebar-menu>li ul.dropdown-menu li a {
   height: 40px;
   padding: 0 20px;
-  background-color: #F98341;
+  background-color: #5150f8;
 }
 
 body.sidebar-mini .main-sidebar .sidebar-menu>li ul.dropdown-menu li a.has-dropdown:after {
@@ -3794,7 +3794,7 @@ body.sidebar-mini .main-sidebar .sidebar-menu li:hover>ul.dropdown-menu {
 }
 
 body.sidebar-mini .main-sidebar .sidebar-menu li:hover>ul.dropdown-menu li:hover>a {
-  background-color: #F98341;
+  background-color: #5150f8;
 }
 
 body.sidebar-mini .main-sidebar .sidebar-menu li:hover>ul.dropdown-menu li .dropdown-menu {
@@ -3859,7 +3859,7 @@ body.layout-2 .main-sidebar .sidebar-menu li a.has-dropdown:after {
 }
 
 body.layout-2 .main-sidebar .sidebar-menu li a:hover {
-  color: #F98341;
+  color: #5150f8;
   background-color: transparent;
 }
 
@@ -4035,7 +4035,7 @@ body.layout-3 .main-footer {
   display: inline-block;
   width: 100%;
   text-align: right;
-  background: #F98341;
+  background: #5150f8;
   height: 60px;
   line-height: 60px;
 }
@@ -4072,7 +4072,7 @@ body.layout-3 .main-footer {
 .main-sidebar .sidebar-menu {
   padding: 0;
   margin: 0;
-  background-color: #F98341;
+  background-color: #5150f8;
 }
 
 .main-sidebar .sidebar-menu li {
@@ -4154,7 +4154,7 @@ body.layout-3 .main-footer {
 }
 
 .main-sidebar .sidebar-menu li.active>ul.dropdown-menu li a:hover {
-  background-color: #F98341;
+  background-color: #5150f8;
 }
 
 .main-sidebar .sidebar-menu li ul.dropdown-menu {
@@ -4181,7 +4181,7 @@ body.layout-3 .main-footer {
 }
 
 .main-sidebar .sidebar-menu li ul.dropdown-menu li.active>a {
-  color: #F98341;
+  color: #5150f8;
   font-weight: 600;
 }
 

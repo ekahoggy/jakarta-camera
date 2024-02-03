@@ -98,22 +98,16 @@ class MediaController extends Controller
 
     public function destroy($id){
         $media = Media::findOrFail($id);
-        // public_path('img/media/originals/')
         $image_path = public_path("img/media/originals/{$media->file}");
         if (File::exists($image_path)) {
-            //File::delete($image_path);
             unlink($image_path);
         }
-        // $news->delete();
-        // Storage::disk('s3')->delete($media->file);
         $media->delete();
 
         return response()->json(['success' => true]);
     }
 
     public function getImg(Request $request) {
-        $url = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/';
-
         $model = Media::orderBy('created_at', 'DESC');
 
         if(isset($request->search)){
@@ -123,7 +117,7 @@ class MediaController extends Controller
         $result = $model->paginate(12);
 
         foreach ($result as $key => $value) {
-            $value->link_image = url('img/media/originals/'.$value->file);
+            $value->link_image = url("img/media/originals/{$value->file}");
         }
 
         return response()->json(['success' => true, "data" => $result, "paginate" => (string) $result->links()]);
@@ -138,9 +132,6 @@ class MediaController extends Controller
         try {
             if ($request->hasFile('file')) {
                 $uploadedImage = $request->file('file');
-                // $name = time() . $file->getClientOriginalName();
-                // $filePath = 'galery_wvi/' . $name;
-                // Storage::disk('s3')->put($filePath, file_get_contents($file));
 
                 $filename = Str::random();
                 $original = $filename . '.' . $uploadedImage->getClientOriginalExtension();

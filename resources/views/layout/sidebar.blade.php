@@ -131,7 +131,13 @@
                             <li><a class="nav-link" href="{{ route('kategori.index') }}">Kategori</a></li>
                         @endif
                         @if (session('roles')->role_index === 1)
-                            <li><a class="nav-link" href="{{ route('kategori.index') }}">Produk</a></li>
+                            <li><a class="nav-link" href="{{ route('produk.index') }}">Produk</a></li>
+                        @endif
+                        @if (session('roles')->role_index === 1)
+                            <li><a class="nav-link" href="{{ route('produk.index') }}">Promo</a></li>
+                        @endif
+                        @if (session('roles')->role_index === 1)
+                            <li><a class="nav-link" href="{{ route('produk.index') }}">Voucher</a></li>
                         @endif
                     </ul>
                 </li>
