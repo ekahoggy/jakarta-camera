@@ -155,7 +155,7 @@
                                     <div class="upload__btn-box">
                                         <label class="upload__btn">
                                             <i class="fa fa-plus"> Upload Foto Produk</i>
-                                            <input type="file" data-max_length="20"
+                                            <input type="file" data-max_length="20" accept="image/*"
                                                 class="upload__inputfile" name="foto_produk[]" multiple>
                                         </label>
                                     </div>

@@ -13,6 +13,7 @@ use App\Http\Controllers\KegiatanDraftController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\PromoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SiteController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\WidgetController;
 use App\Models\Donations;
 use Illuminate\Support\Facades\Artisan;
@@ -74,6 +76,24 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [ProdukController::class, 'edit'])->name('produk.edit');
         Route::post('/update/{id}', [ProdukController::class, 'update'])->name('produk.update');
         Route::delete('/delete/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+    });
+
+    Route::prefix('promo')->group(function (){
+        Route::get('/', [PromoController::class, 'index'])->name('promo.index');
+        Route::get('/create', [PromoController::class, 'create'])->name('promo.create');
+        Route::post('/store', [PromoController::class, 'store'])->name('promo.store');
+        Route::get('/edit/{id}', [PromoController::class, 'edit'])->name('promo.edit');
+        Route::post('/update/{id}', [PromoController::class, 'update'])->name('promo.update');
+        Route::delete('/delete/{id}', [PromoController::class, 'destroy'])->name('promo.destroy');
+    });
+
+    Route::prefix('voucher')->group(function (){
+        Route::get('/', [VoucherController::class, 'index'])->name('voucher.index');
+        Route::get('/create', [VoucherController::class, 'create'])->name('voucher.create');
+        Route::post('/store', [VoucherController::class, 'store'])->name('voucher.store');
+        Route::get('/edit/{id}', [VoucherController::class, 'edit'])->name('voucher.edit');
+        Route::post('/update/{id}', [VoucherController::class, 'update'])->name('voucher.update');
+        Route::delete('/delete/{id}', [VoucherController::class, 'destroy'])->name('voucher.destroy');
     });
 
     Route::prefix('testimoni')->group(function (){

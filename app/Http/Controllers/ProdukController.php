@@ -49,9 +49,7 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         try {
-            // $url = env('IMG_URL').'img/media/originals/';
-            // $img = str_replace($url, "", $request->icon);
-            
+
             $payload = [
                 "id"            => Generator::uuid4()->toString(),
                 "sku"           => MoodStudio::skuProduk(),
@@ -108,5 +106,22 @@ class ProdukController extends Controller
             Alert::error('Error', 'There is an error.');
             return back();
         }
+    }
+
+    public function edit($id)
+    {
+        $model = Produk::findOrFail($id);
+
+        $kategori = Kategori::get();
+        $foto = ProdukFoto::where('m_produk_id', $id)->get();
+        
+        return view('page.produk.edit', ['model' => $model, 'foto' => $foto, 'listKategori' => $kategori]);
+    }
+
+    public function destroy($id){
+        $role = Produk::findOrFail($id);
+        $role->delete();
+
+        return response()->json(['success' => true]);
     }
 }
