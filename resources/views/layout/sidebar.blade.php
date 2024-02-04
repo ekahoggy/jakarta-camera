@@ -134,10 +134,10 @@
                             <li><a class="nav-link" href="{{ route('produk.index') }}">Produk</a></li>
                         @endif
                         @if (session('roles')->role_index === 1)
-                            <li><a class="nav-link" href="{{ route('produk.index') }}">Promo</a></li>
+                            <li><a class="nav-link" href="{{ route('promo.index') }}">Promo</a></li>
                         @endif
                         @if (session('roles')->role_index === 1)
-                            <li><a class="nav-link" href="{{ route('produk.index') }}">Voucher</a></li>
+                            <li><a class="nav-link" href="{{ route('voucher.index') }}">Voucher</a></li>
                         @endif
                     </ul>
                 </li>

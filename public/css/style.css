@@ -4365,3 +4365,12 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
     opacity: 0.0;
   }
 }
+
+.vertical-align-middle{
+  vertical-align: middle !important;
+}
+
+/* warna */
+.color-red {
+  color: red !important;
+}

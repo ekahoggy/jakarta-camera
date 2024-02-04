@@ -124,4 +124,17 @@ class ProdukController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    //public function
+    public function getProduk(Request $request){
+        $model = Produk::where('is_active', 1)->get();
+
+        return response()->json(['success' => true, "data" => $model]);
+    }
+    
+    public function getProdukById(Request $request, $id){
+        $data = Produk::where('is_active', 1)->where('id', $id)->first();
+
+        return response()->json(['success' => true, "data" => $data]);
+    }
 }

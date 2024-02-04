@@ -76,6 +76,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [ProdukController::class, 'edit'])->name('produk.edit');
         Route::post('/update/{id}', [ProdukController::class, 'update'])->name('produk.update');
         Route::delete('/delete/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+
+        Route::get('/getAllProduk', [ProdukController::class, 'getProduk']);
+        Route::get('/getProdukById/{id?}', [ProdukController::class, 'getProdukById']);
     });
 
     Route::prefix('promo')->group(function (){
