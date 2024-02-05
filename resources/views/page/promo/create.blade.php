@@ -187,16 +187,23 @@
             let harga = newRow.insertCell(2);
             let hargaComp = document.createElement('div');
             hargaComp.setAttribute("id", "harga-produk-" + newRow.id);
+            $(hargaComp).html('');
+            harga.appendChild(hargaComp);
 
             // jumlah produk
             let jumlah = newRow.insertCell(3);
             let jumlahComp = document.createElement('div');
             jumlahComp.setAttribute("id", "jumlah-produk-" + newRow.id);
+            $(jumlahComp).html('');
+            jumlah.appendChild(jumlahComp);
 
             // sisa produk
             let sisa = newRow.insertCell(4);
             let sisaComp = document.createElement('div');
             sisaComp.setAttribute("id", "sisa-produk-" + newRow.id);
+            $(sisaComp).html('');
+            sisa.appendChild(sisaComp);
+
         }
 
         function search(id) {
@@ -209,8 +216,6 @@
                     let jumlah = document.getElementById("jumlah-produk-" + id);
                     let sisa = document.getElementById("sisa-produk-" + id);
 
-                    console.log(harga);
-                    console.log(data.harga);
                     $(harga).html('<span>Rp. ' + data.harga + '</span>');
                 }
             });
