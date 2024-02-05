@@ -16,11 +16,7 @@ class SliderController extends Controller
 {
     public function index() {
         $model = Slider::orderBy('index_position')->get();
-        $url = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/';
 
-        foreach ($model as $key => $value) {
-            $value->link_image = $url . $value->picture;
-        }
         return view('page.slider.index', ['list' => $model]);
     }
 
@@ -30,7 +26,7 @@ class SliderController extends Controller
 
     public function store(Request $request)
     {
-        $url = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/';
+        $url = env('IMG_URL').'img/media/originals/';
         $img = str_replace($url, "", $request->picture);
 
         try {
@@ -70,9 +66,6 @@ class SliderController extends Controller
         $model = Slider::findOrFail($id);
         $model->time = date('H:i', strtotime($model->date));
         $model->date = date('Y-m-d', strtotime($model->date));
-        $url = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/';
-
-        $model->picture = $url . $model->picture;
 
         return view('page.slider.edit', ['model' => $model]);
     }
@@ -97,7 +90,7 @@ class SliderController extends Controller
             ];
 
             if (isset($request->picture)) {
-                $url = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/';
+                $url = env('IMG_URL').'img/media/originals/';
                 $img = str_replace($url, "", $request->picture);
 
                 $payload["picture"] = $img;

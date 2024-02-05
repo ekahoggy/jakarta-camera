@@ -26,7 +26,7 @@
                                 </svg>
                             </div>
                             <div class="img-section rounded d-flex justify-content-center px-1">
-                                <img class="rounded" src="{{ $val->link_image }}" alt="" width="100%"
+                                <img class="rounded" src="{{ url('img/media/originals/' . $val->picture) }}" alt="" width="100%"
                                     style="height: 280px;object-fit: cover;">
                             </div>
                             <div class="section-content px-3 pt-2"

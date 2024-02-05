@@ -48,7 +48,7 @@
                                     <div class="col-md-12 text-center">
                                         <div id="image-preview" class="@if($model->picture == null) hidden @endif bg-light text-center rounded p-2"
                                             data-target="#exampleModal" data-toggle="modal">
-                                            <img id="preview-image" class="image-thumbnail" src="{{$model->picture}}" loading="lazy"/>
+                                            <img id="preview-image" class="image-thumbnail" src="{{ url('img/media/originals/' . $model->picture) }}" loading="lazy"/>
                                         </div>
                                     </div>
                                 </div>

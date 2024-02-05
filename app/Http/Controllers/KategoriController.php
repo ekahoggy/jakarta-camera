@@ -13,15 +13,15 @@ class KategoriController extends Controller
 {
     public function index() {
         $model = Kategori::whereNull('induk_id')->orderBy('created_at', 'DESC');
-        $model = $model->paginate(10);
-        
+        $model = $model->paginate(100);
+
         foreach ($model as $key => $value) {
             $value->childs = MoodStudio::oneTreeView('m_kategori', $value->id);
         }
 
         return view('page.kategori.index', ['list' => $model]);
     }
-    
+
     public function create() {
         $induk = Kategori::whereNull('induk_id')->get();
 
