@@ -82,7 +82,7 @@
                                                         <i class="fas fa-clock"></i>
                                                     </div>
                                                 </div>
-                                                <input id="timepicker" class="form-control" type="text"
+                                                <input id="timepicker2" class="form-control" type="text"
                                                     name="jam_selesai">
                                             </div>
                                         </div>
@@ -144,6 +144,11 @@
 
         $(function() {
             $('#timepicker').timepicker({
+                showMeridian: false,
+                showInputs: true
+            });
+
+            $('#timepicker2').timepicker({
                 showMeridian: false,
                 showInputs: true
             });
@@ -222,7 +227,7 @@
         }
 
         function selectProduct(data) {
-            
+
         }
     </script>
 @endsection

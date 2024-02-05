@@ -26,7 +26,7 @@
                                 <div class="col-md-12 bhs-indonesia">
                                     <div class="form-group">
                                         <label for="redeem_code">Kode Redeem</label>
-                                        <input class="form-control form-control-sm" id="redeem_code" name="redeem_code"
+                                        <input class="form-control form-control-sm" id="redeem_code" name="redeem_code" style="text-transform:uppercase"
                                             value="{{ old('redeem_code') }}" rows="5" placeholder="Masukkan kode redeem">
                                     </div>
                                 </div>
@@ -145,12 +145,12 @@
                                 </div>
                                 <div class="col-md-12 nominal hidden">
                                     <div class="form-group">
-                                        <label for="voucher_value">Nominal</label>
+                                        <label for="voucher_value_nominal">Nominal</label>
                                         <div class="input-container">
                                             <i class="icon">Rp</i>
                                             <input class="form-control form-control-sm input-field" type="text"
-                                                placeholder="Masukkan Nominal" name="voucher_value" id="voucher_value"
-                                                value="{{ old('voucher_value') }}" onkeyup="changeVal(this)">
+                                                placeholder="Masukkan Nominal" name="voucher_value_nominal" id="voucher_value_nominal"
+                                                value="{{ old('voucher_value_nominal') }}" onkeyup="changeVal(this)">
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +183,7 @@
                                             <i class="icon">Rp</i>
                                             <input class="form-control form-control-sm input-field" type="text"
                                                 placeholder="Masukkan Maksimal Potongan Voucher" name="voucher_max" id="voucher_max"
-                                                value="{{ old('voucher_max') }}" onkeyup="changeVal(this)" required>
+                                                value="{{ old('voucher_max') }}" onkeyup="changeVal(this)">
                                         </div>
                                     </div>
                                 </div>
@@ -215,7 +215,7 @@
                     </div>
 
                     <div class="card-footer d-flex justify-content-end">
-                        <a href="{{ route('produk.index') }}" class="btn btn-sm btn-light mr-2">
+                        <a href="{{ route('voucher.index') }}" class="btn btn-sm btn-light mr-2">
                             <i class="fa fa-chevron-left"></i> &nbsp; Kembali
                         </a>
                         <button class="btn btn-sm btn-primary" type="submit">

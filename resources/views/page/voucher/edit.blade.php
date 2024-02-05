@@ -5,178 +5,213 @@
         <div class="card">
             <div class="card-header justify-content-between d-flex">
                 <h3>
-                    Edit Produk
+                    Edit Voucher
                 </h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="/produk">Produk</a></li>
+                        <li class="breadcrumb-item"><a href="/voucher">Voucher</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Edit</li>
                     </ol>
                 </nav>
             </div>
             <div class="card-body">
-                <form method="post" action="{{ route('produk.update', $model->id) }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('voucher.update', $model->id) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-12 row">
                             <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <h5>Data Voucher</h5>
+                                </div>
                                 <div class="col-md-12 bhs-indonesia">
                                     <div class="form-group">
-                                        <label for="sku">Kode SKU</label>
-                                        <input class="form-control form-control-sm" id="sku" name="sku"
-                                            value="{{ $model->sku }}" rows="5" placeholder="Generate Otomatis"
-                                            disabled>
+                                        <label for="redeem_code">Kode Redeem</label>
+                                        <input class="form-control form-control-sm" id="redeem_code" name="redeem_code" style="text-transform:uppercase"
+                                            value="{{ $model->redeem_code }}" rows="5" placeholder="Masukkan kode redeem" disabled required>
                                     </div>
                                 </div>
                                 <div class="col-md-12 bhs-indonesia">
                                     <div class="form-group">
-                                        <label for="nama">Nama Produk</label>
-                                        <input class="form-control form-control-sm" id="nama" name="nama"
-                                            value="{{ $model->nama }}" rows="5" placeholder="Masukkan Nama Produk"
+                                        <label for="voucher">Nama</label>
+                                        <input class="form-control form-control-sm" id="voucher" name="voucher"
+                                            value="{{ $model->voucher }}" rows="5" placeholder="Masukkan Nama Voucher"
                                             required>
                                     </div>
                                 </div>
-                                <div class="col-md-12 bhs-indonesia">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="harga">Harga</label>
-                                        <div class="input-container">
-                                            <i class="icon">Rp</i>
-                                            <input class="form-control form-control-sm input-field" type="text"
-                                                placeholder="Masukkan Harga Produk" name="harga" id="harga"
-                                                value="{{ $model->harga }}" onkeyup="changeVal(this)">
+                                        <label>Tanggal Mulai</label>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fas fa-calendar"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" class="form-control datepicker" name="tanggal_mulai" value="{{ $model->tanggal_mulai }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fas fa-clock"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input id="timepicker" class="form-control" type="text" name="jam_mulai" value="{{ $model->jam_mulai }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Tanggal Selesai</label>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fas fa-calendar"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" class="form-control datepicker"
+                                                        name="tanggal_selesai" value="{{ $model->tanggal_selesai }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fas fa-clock"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input id="timepicker2" class="form-control" type="text"
+                                                        name="jam_selesai" value="{{ $model->jam_selesai }}">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12 bhs-indonesia">
                                     <div class="form-group">
-                                        <label for="min_beli">Min Beli</label>
-                                        <input class="form-control form-control-sm" type="number" id="min_beli"
-                                            name="min_beli" value="{{ $model->min_beli }}" placeholder="Minimal Pembelian"
+                                        <label for="qty">Jumlah</label>
+                                        <input class="form-control form-control-sm" type="number" id="qty" name="qty"
+                                            value="{{ $model->qty }}" placeholder="Jumlah Voucher"
                                             required>
                                     </div>
                                 </div>
                                 <div class="col-md-12 bhs-indonesia">
                                     <div class="form-group">
-                                        <label>Detail Produk</label>
+                                        <label>Deskripsi Voucher</label>
                                         <div class="col-sm-12 p-0">
-                                            <textarea class="summernote" name="detail_produk">{{ $model->detail_produk }}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 bhs-indonesia">
-                                    <div class="form-group">
-                                        <label class="required">Deskripsi Produk</label>
-                                        <div class="col-sm-12 p-0">
-                                            <textarea class="summernote required" name="deskripsi">{{ $model->deskripsi }}</textarea>
+                                            <textarea class="summernote" name="deskripsi">{{ $model->deskripsi }}</textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="col-md-12 bhs-indonesia">
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <label for="kategori">Kategori</label>
-                                            <select id="induk_id" name="m_kategori_id" placeholder="Pilih kategori">
-                                                <option value="">Pilih induk kategori</option>
-                                                @foreach ($listKategori as $item)
-                                                    <option value="{{ $item->id }}"
-                                                        @if ($item->id == $model->m_kategori_id) selected="selected" @endif>
-                                                        {{ $item->kategori }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+                                <div class="col-md-12">
+                                    <h5>Detail Voucher</h5>
                                 </div>
                                 <div class="col-md-12 bhs-indonesia">
                                     <div class="form-group">
-                                        <label class="required">In Box Detail</label>
+                                        <label class="required">Jenis Voucher</label>
                                         <div class="col-sm-12 p-0">
-                                            <textarea class="summernote required" name="in_box">{{ $model->in_box }}</textarea>
+                                            <label class="custom-switch p-0" style="cursor: pointer">
+                                                Transaksi &nbsp;&nbsp;
+                                                <input type="checkbox" name="kategori" id="kategori" class="custom-switch-input" @if ($model->kategori == "O") checked @endif>
+                                                <span class="custom-switch-indicator"></span>
+                                                &nbsp;&nbsp;
+                                                Ongkir
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12 bhs-indonesia">
                                     <div class="form-group">
-                                        <label for="link_shopee">Link Shopee</label>
-                                        <input class="form-control form-control-sm" id="link_shopee" name="link_shopee"
-                                            value="{{ $model->link_shopee }}" rows="5"
-                                            placeholder="Masukkan Link Shopee" required>
+                                        <label class="required">Tipe Voucher</label>
+                                        <div class="col-sm-12 p-0">
+                                            <label class="custom-switch p-0" style="cursor: pointer">
+                                                Persen &nbsp;&nbsp;
+                                                <input type="checkbox" name="type" id="type" class="custom-switch-input" onchange="changeTipe()" @if ($model->type == "N") checked @endif>
+                                                <span class="custom-switch-indicator"></span>
+                                                &nbsp;&nbsp;
+                                                Nominal
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 nominal hidden">
+                                    <div class="form-group">
+                                        <label for="voucher_value_nominal">Nominal</label>
+                                        <div class="input-container">
+                                            <i class="icon">Rp</i>
+                                            <input class="form-control form-control-sm input-field" type="text"
+                                                placeholder="Masukkan Nominal" name="voucher_value_nominal" id="voucher_value_nominal"
+                                                value="{{ $model->voucher_value_nominal }}" onkeyup="changeVal(this)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 persen">
+                                    <div class="form-group">
+                                        <label for="voucher_value">Persen</label>
+                                        <div class="input-container">
+                                            <input class="form-control form-control-sm input-field" type="text"
+                                                placeholder="Masukkan Persen" name="voucher_value" id="voucher_value"
+                                                value="{{ $model->voucher_value }}">
+                                            <i class="icon icon-right">%</i>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12 bhs-indonesia">
                                     <div class="form-group">
-                                        <label for="link_tokped">Link Tokopedia</label>
-                                        <input class="form-control form-control-sm" id="link_tokped" name="link_tokped"
-                                            value="{{ $model->link_tokped }}" rows="5"
-                                            placeholder="Masukkan Link Tokopedia" required>
+                                        <label for="voucher_min_beli">Min. Pembelian</label>
+                                        <div class="input-container">
+                                            <i class="icon">Rp</i>
+                                            <input class="form-control form-control-sm input-field" type="text"
+                                                placeholder="Masukkan Minimal Pembelian" name="voucher_min_beli" id="voucher_min_beli"
+                                                value="{{ $model->voucher_min_beli }}" onkeyup="changeVal(this)" required>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 bhs-indonesia">
+                                <div class="col-md-12 persen">
                                     <div class="form-group">
-                                        <label for="link_bukalapak">Link Bukalapak</label>
-                                        <input class="form-control form-control-sm" id="link_bukalapak"
-                                            name="link_bukalapak" value="{{ $model->link_bukalapak }}" rows="5"
-                                            placeholder="Masukkan Link Bukalapak" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 bhs-indonesia">
-                                    <div class="form-group">
-                                        <label for="link_lazada">Link Lazada</label>
-                                        <input class="form-control form-control-sm" id="link_lazada" name="link_lazada"
-                                            value="{{ $model->link_lazada }}" rows="5"
-                                            placeholder="Masukkan Link Lazada" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 bhs-indonesia">
-                                    <div class="form-group">
-                                        <label for="link_blibli">Link Blibli</label>
-                                        <input class="form-control form-control-sm" id="link_blibli" name="link_blibli"
-                                            value="{{ $model->link_blibli }}" rows="5"
-                                            placeholder="Masukkan Link Lazada" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 bhs-indonesia">
-                                    <div class="form-group">
-                                        <label for="tags">Tags Produk</label>
-                                        <p></p>
-                                        <div class="tags-input">
-                                            <ul id="tags"></ul>
-                                            <input class="form-control form-control-sm" type="text" id="input-tag"
-                                                placeholder="Masukkan tags produk" value="{{ old('tags') }}" />
-                                            <input type="hidden" id="tags_value" name="tags">
+                                        <label for="voucher_max">Max Potongan Voucher</label>
+                                        <div class="input-container">
+                                            <i class="icon">Rp</i>
+                                            <input class="form-control form-control-sm input-field" type="text"
+                                                placeholder="Masukkan Maksimal Potongan Voucher" name="voucher_max" id="voucher_max"
+                                                value="{{ $model->voucher_max }}" onkeyup="changeVal(this)" required>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 px-4 bhs-indonesia">
+                        <div class="col-md-6 bhs-indonesia ml-3">
                             <div class="form-group">
-                                <label for="image">Gambar Produk</label>
-
-                                <div class="upload__box">
-                                    <div class="upload__btn-box">
-                                        <label class="upload__btn">
-                                            <i class="fa fa-plus"> Upload Foto Produk</i>
-                                            <input type="file" data-max_length="20" accept="image/*"
-                                                class="upload__inputfile" name="foto_produk[]" multiple>
-                                            <input type="file" data-max_length="20" accept="image/*"
-                                                class="upload__inputfile_hidden" name="foto" multiple hidden>
-                                        </label>
+                                <label for="image">Gambar</label>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="drop-zone @if ($model->gambar != null) hidden @endif"
+                                            id="drop-zone" {{-- onclick="document.getElementById('image-input').click()" --}} data-target="#exampleModal"
+                                            data-toggle="modal">
+                                            <div class="drop-zone-text">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                                <p>Drag and drop your image here</p>
+                                            </div>
+                                            {{-- <input type="file" name="gambar" id="image-input" accept="image/*"
+                                                onchange="showPreview(event)" class="hidden" /> --}}
+                                            <input type="text" name="gambar" id="image-input" class="hidden" />
+                                        </div>
                                     </div>
-                                    <div class="upload__img-wrap">
-                                        @if ($foto)
-                                            @foreach ($foto as $f)
-                                                <div class='upload__img-box'>
-                                                    <div style="background-image: url({{ url('img/media/product/' . $f->foto) }})"
-                                                        data-number='{{ $f->urutan }}'
-                                                        data-file='{{ $f->foto }}' class='img-bg'>
-                                                        <div class='upload__img-close'></div>
-                                                    </div>
-                                                </div>
-                                                {{-- <img src="{{ url('img/media/product/' . $f->foto) }}" alt="foto {{ $f->foto }}"> --}}
-                                            @endforeach
-                                        @endif
+                                    <div class="col-md-12 text-center">
+                                        <div id="image-preview"
+                                            class="@if ($model->gambar == null) hidden @endif bg-light text-center rounded p-2"
+                                            {{-- onclick="document.getElementById('image-input').click()" --}} data-target="#exampleModal" data-toggle="modal">
+                                            <img id="preview-image" class="image-thumbnail" src="{{ url('img/media/originals/' . $model->gambar) }}" loading="lazy"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -184,7 +219,7 @@
                     </div>
 
                     <div class="card-footer d-flex justify-content-end">
-                        <a href="{{ route('produk.index') }}" class="btn btn-sm btn-light mr-2">
+                        <a href="{{ route('voucher.index') }}" class="btn btn-sm btn-light mr-2">
                             <i class="fa fa-chevron-left"></i> &nbsp; Kembali
                         </a>
                         <button class="btn btn-sm btn-primary" type="submit">
@@ -201,7 +236,7 @@
         aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
-                <div class="modal-body px-0">
+                <div class="modal-body px-0 pb-0">
                     @include('page.media-modal.modal-media')
                 </div>
                 <div class="modal-footer">
@@ -211,6 +246,10 @@
         </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
+
     <script>
         @if (session('success'))
             Swal.fire('Success', '{{ session('success') }}', 'success');
@@ -218,6 +257,21 @@
         @if (session('error'))
             Swal.fire('Oopss', '{{ session('error') }}', 'error');
         @endif
+
+        $(function() {
+            $('#timepicker').timepicker({
+                showMeridian: false,
+                showInputs: true
+            });
+            $('#timepicker2').timepicker({
+                showMeridian: false,
+                showInputs: true
+            });
+
+            $('select').selectize({
+                sortField: 'text'
+            });
+        });
 
         function showPreview(event) {
             const input = event.target;
@@ -266,166 +320,29 @@
             $('select').selectize({
                 sortField: 'text'
             });
-            // loadImage();
-            // $('#harga').value = formatRupiah(parseInt({{ $model->harga }}));
+
+            changeTipe(true);
         });
 
-        jQuery(document).ready(function() {
-            ImgUpload();
-        });
-
-        function loadImage() {
-            var imgWrap = "";
-            var imgArray = [];
-            console.log(imgArray);
-            return;
-            var maxLength = 20;
-            imgWrap = $(this).closest('.upload__box').find('.upload__img-wrap');
-            console.log(imgWrap);
-
-            if (imgArray.length > maxLength) {
-                return false
-            } else {
-                var len = 0;
-                for (var i = 0; i < imgArray.length; i++) {
-                    if (imgArray[i] !== undefined) {
-                        len++;
-                    }
-                }
-                if (len > maxLength) {
-                    return false;
-                } else {
-                    imgArray.push(f);
-
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        var html =
-                            "<div class='upload__img-box'><div style='background-image: url(" +
-                            e.target.result + ")' data-number='" + $(
-                                ".upload__img-close").length + "' data-file='" + f
-                            .name +
-                            "' class='img-bg'><div class='upload__img-close'></div></div></div>";
-                        imgWrap.append(html);
-                        iterator++;
-                    }
-                    reader.readAsDataURL(f);
-                }
-            }
-
-        }
-
-        function ImgUpload() {
-            var imgWrap = "";
-            var imgArray = [];
-
-            $('.upload__inputfile').each(function() {
-                $(this).on('change', function(e) {
-                    imgWrap = $(this).closest('.upload__box').find('.upload__img-wrap');
-                    var maxLength = $(this).attr('data-max_length');
-
-                    var files = e.target.files;
-                    var filesArr = Array.prototype.slice.call(files);
-                    var iterator = 0;
-                    filesArr.forEach(function(f, index) {
-
-                        if (!f.type.match('image.*')) {
-                            return;
-                        }
-
-                        if (imgArray.length > maxLength) {
-                            return false
-                        } else {
-                            var len = 0;
-                            for (var i = 0; i < imgArray.length; i++) {
-                                if (imgArray[i] !== undefined) {
-                                    len++;
-                                }
-                            }
-                            if (len > maxLength) {
-                                return false;
-                            } else {
-                                imgArray.push(f);
-
-                                var reader = new FileReader();
-                                reader.onload = function(e) {
-                                    var html =
-                                        "<div class='upload__img-box'><div style='background-image: url(" +
-                                        e.target.result + ")' data-number='" + $(
-                                            ".upload__img-close").length + "' data-file='" + f
-                                        .name +
-                                        "' class='img-bg'><div class='upload__img-close'></div></div></div>";
-                                    imgWrap.append(html);
-                                    iterator++;
-                                }
-                                reader.readAsDataURL(f);
-                            }
-                        }
-                    });
+        function changeTipe(edit = false) {
+            const tipe = document.getElementById('type').checked;
+            var nominal = document.querySelectorAll(".nominal");
+            var persen = document.querySelectorAll(".persen");
+            if (tipe === true) {
+                nominal.forEach((element) => {
+                    element.classList.remove('hidden');
                 });
-            });
-
-            $('body').on('click', ".upload__img-close", function(e) {
-                var file = $(this).parent().data("file");
-                for (var i = 0; i < imgArray.length; i++) {
-                    if (imgArray[i].name === file) {
-                        imgArray.splice(i, 1);
-                        break;
-                    }
-                }
-                $(this).parent().parent().remove();
-            });
+                persen.forEach((element) => {
+                    element.classList.add('hidden');
+                });
+            } else {
+                nominal.forEach((element) => {
+                    element.classList.add('hidden');
+                });
+                persen.forEach((element) => {
+                    element.classList.remove('hidden');
+                });
+            }
         }
-
-        // Get the tags and input elements from the DOM 
-        const tags = document.getElementById('tags');
-        const value_tags = document.getElementById('tags_value');
-        const input = document.getElementById('input-tag');
-
-        // Add an event listener for keydown on the input element 
-        input.addEventListener('keydown', function(event) {
-
-            // Check if the key pressed is 'Enter' 
-            if (event.key === 'Enter') {
-
-                // Prevent the default action of the keypress 
-                // event (submitting the form) 
-                event.preventDefault();
-
-                // Create a new list item element for the tag 
-                const tag = document.createElement('li');
-
-                // Get the trimmed value of the input element 
-                const tagContent = input.value.trim();
-
-                // If the trimmed value is not an empty string 
-                if (tagContent !== '') {
-
-                    // Set the text content of the tag to  
-                    // the trimmed value 
-                    tag.innerText = tagContent;
-
-                    // Add a delete button to the tag 
-                    tag.innerHTML += '<button class="delete-button">X</button>';
-
-                    // Append the tag to the tags list 
-                    tags.appendChild(tag);
-
-                    // Clear the input element's value 
-                    input.value = '';
-                    value_tags.value += tagContent + ', ';
-                }
-            }
-        });
-
-        // Add an event listener for click on the tags list 
-        tags.addEventListener('click', function(event) {
-
-            // If the clicked element has the class 'delete-button' 
-            if (event.target.classList.contains('delete-button')) {
-
-                // Remove the parent element (the tag) 
-                event.target.parentNode.remove();
-            }
-        });
     </script>
 @endsection

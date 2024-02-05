@@ -112,13 +112,13 @@
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_1991_2750)">
+                            <g clip-path="url(#clip0_1991_2739)">
                                 <path
-                                    d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V19C4 19.55 4.45 20 5 20H19C19.55 20 20 19.55 20 19V18C20 15.34 14.67 14 12 14Z"
+                                    d="M13 14V20C13 20.55 13.45 21 14 21H20C20.55 21 21 20.55 21 20V14C21 13.45 20.55 13 20 13H14C13.45 13 13 13.45 13 14ZM4 21H10C10.55 21 11 20.55 11 20V14C11 13.45 10.55 13 10 13H4C3.45 13 3 13.45 3 14V20C3 20.55 3.45 21 4 21ZM3 4.00001V10C3 10.55 3.45 11 4 11H10C10.55 11 11 10.55 11 10V4.00001C11 3.45001 10.55 3.00001 10 3.00001H4C3.45 3.00001 3 3.45001 3 4.00001ZM15.95 2.40001L11.7 6.64001C11.31 7.03001 11.31 7.66001 11.7 8.05001L15.95 12.3C16.34 12.69 16.97 12.69 17.36 12.3L21.61 8.05001C22 7.66001 22 7.03001 21.61 6.64001L17.37 2.40001C16.98 2.01001 16.34 2.01001 15.95 2.40001Z"
                                     fill="white" />
                             </g>
                             <defs>
-                                <clipPath id="clip0_1991_2750">
+                                <clipPath id="clip0_1991_2739">
                                     <rect width="24" height="24" fill="white" />
                                 </clipPath>
                             </defs>
@@ -282,7 +282,7 @@
                     </ul>
                 </li>
             @endif
-            <!-- 
+            <!--
             <li>
                 <a href="{{ route('setting.index') }}"
                     class="nav-link {{ Request::is('resoruce/*') ? 'active' : '' }}">
@@ -317,6 +317,7 @@
                     <ul class="dropdown-menu" style="display: none;">
                         <li><a class="nav-link" href="{{ route('faq.index') }}">FAQ</a></li>
                         <li><a class="nav-link" href="{{ route('subscription.index') }}">Subscription</a>
+                        <li><a class="nav-link" href="{{ route('subscription.index') }}">SEO</a>
                         </li>
                     </ul>
                 </li>

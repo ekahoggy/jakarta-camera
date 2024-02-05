@@ -50,8 +50,20 @@
                                     </td>
                                     <td class="align-middle text-center">{{ date('l', strtotime($val->tanggal_mulai)) }}, {{ date('d-m-Y', strtotime($val->tanggal_mulai)) }} <br>{{ date('H:i', strtotime($val->jam_mulai)) }}</td>
                                     <td class="align-middle text-center">{{ date('l', strtotime($val->tanggal_selesai)) }}, {{ date('d-m-Y', strtotime($val->tanggal_selesai)) }} <br>{{ date('H:i', strtotime($val->jam_selesai)) }}</td>
-                                    <td class="align-middle text-center">{{ $val->voucher_value }}%</td>
-                                    <td class="align-middle text-center">{{ $val->voucher_value }}</td>
+                                    <td class="align-middle text-center">
+                                        @if ($val->type == 'P')
+                                            {{ $val->voucher_value }}%
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        @if ($val->type == 'N')
+                                            <span class="currency">{{ $val->voucher_value }}</span>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                     <td class="align-middle text-center">{{ $val->voucher_used }}</td>
                                     <td class="align-middle text-right">
                                         <div class="d-flex align-items-center">
