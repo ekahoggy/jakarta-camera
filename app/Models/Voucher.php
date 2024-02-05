@@ -9,7 +9,7 @@ class Voucher extends Model
 {
     use HasFactory;
 
-    protected $table = 'm_promo';
+    protected $table = 'm_voucher';
     protected $primaryKey = 'id';
 
     protected $fillable = [
@@ -24,7 +24,7 @@ class Voucher extends Model
         'deskripsi',
         'kategori',
         'qty',
-        'voucher_user',
+        'voucher_used',
         'type',
         'voucher_value',
         'voucher_max',

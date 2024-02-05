@@ -15,45 +15,47 @@
                     <table class="table table-striped table-md" id="table-voucher">
                         <tbody>
                             <tr class="bg-primary text-light">
-                                <th rowspan="2">Status</th>
-                                <th rowspan="2">Kode Redeem</th>
-                                <th rowspan="2">Voucher</th>
-                                <th rowspan="2">Jenis</th>
-                                <th colspan="2" class="text-center">Periode</th>
-                                <th colspan="2" class="text-center">Nilai Voucher</th>
-                                <th rowspan="2">Terpakai</th>
-                                <th rowspan="2">Action</th>
+                                <th rowspan="2" class="align-middle">Status</th>
+                                <th rowspan="2" class="align-middle">Kode Redeem</th>
+                                <th rowspan="2" class="align-middle">Voucher</th>
+                                <th rowspan="2" class="align-middle">Jenis</th>
+                                <th colspan="2" class="align-middle text-center">Periode</th>
+                                <th colspan="2" class="align-middle text-center">Nilai Voucher</th>
+                                <th rowspan="2" class="align-middle text-center">Terpakai</th>
+                                <th rowspan="2" class="align-middle">Action</th>
                             </tr>
                             <tr class="bg-primary text-light">
-                                <th>Mulai</th>
-                                <th>Selesai</th>
-                                <th>Persen</th>
-                                <th>Rupiah</th>
+                                <th class="text-center">Mulai</th>
+                                <th class="text-center">Selesai</th>
+                                <th class="text-center">Persen</th>
+                                <th class="text-center">Rupiah</th>
                             </tr>
                             @foreach ($list as $key => $val)
                                 <tr>
-                                    <td class="align-middle">{{ $val->nama }} [{{ $val->sku }}]</td>
-                                    <td class="align-middle"><span class="label info">{{ $val->kategori }}</span></td>
-                                    <td class="align-middle"><img src="{{ url('img/media/product/' . $val->foto) }}"
-                                            alt="icon {{ $val->slug }}" width="50px"></td>
-                                    <td class="align-middle"><span class="currency">{{ $val->harga }}</span></td>
                                     <td class="align-middle">
-                                        @if ($val->type == 'J')
-                                            <span class="label info">Jual</span>
+                                        @if ($val->is_status == 1)
+                                            <span class="label success">Aktif</span>
                                         @else
-                                            <span class="label warning">Titip</span>
+                                            <span class="label warning">Tidak Aktif</span>
                                         @endif
                                     </td>
+                                    <td class="align-middle">{{ $val->redeem_code }}</td>
+                                    <td class="align-middle">{{ $val->voucher }}</td>
                                     <td class="align-middle">
-                                        @foreach ($val->arr_tags as $tag)
-                                            @if ($tag !== '')
-                                                <span class="label success">{{ $tag }}</span>
-                                            @endif
-                                        @endforeach
+                                        @if ($val->kategori == 'T')
+                                            <span>Transaksi</span>
+                                        @else
+                                            <span>Ongkir</span>
+                                        @endif
                                     </td>
-                                    <td class="align-middle">
+                                    <td class="align-middle text-center">{{ date('l', strtotime($val->tanggal_mulai)) }}, {{ date('d-m-Y', strtotime($val->tanggal_mulai)) }} <br>{{ date('H:i', strtotime($val->jam_mulai)) }}</td>
+                                    <td class="align-middle text-center">{{ date('l', strtotime($val->tanggal_selesai)) }}, {{ date('d-m-Y', strtotime($val->tanggal_selesai)) }} <br>{{ date('H:i', strtotime($val->jam_selesai)) }}</td>
+                                    <td class="align-middle text-center">{{ $val->voucher_value }}%</td>
+                                    <td class="align-middle text-center">{{ $val->voucher_value }}</td>
+                                    <td class="align-middle text-center">{{ $val->voucher_used }}</td>
+                                    <td class="align-middle text-right">
                                         <div class="d-flex align-items-center">
-                                            <a href="{{ route('produk.edit', $val->id) }}"
+                                            <a href="{{ route('voucher.edit', $val->id) }}"
                                                 class="btn btn-primary btn-sm mr-2">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -93,7 +95,7 @@
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`/produk/delete/${id}`).then(res => {
+                    axios.delete(`/voucher/delete/${id}`).then(res => {
                             if (res.data.success) {
                                 Swal.fire('Success', 'Deleted successfully', 'success').then(() => {
                                     location.reload();
