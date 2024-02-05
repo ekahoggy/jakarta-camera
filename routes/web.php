@@ -190,6 +190,10 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/subscription/delete/{id}', [SubscriptionController::class, 'destroy'])->name('subscription.destroy');
 
 
+    Route::prefix('seo')->group(function (){
+        Route::get('/', [SettingController::class, 'getSEO'])->name('seo.index');
+        Route::post('/save', [SettingController::class, 'saveSEO'])->name('seo.save');
+    });
     Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
     Route::get('/setting/view/{id}', [SettingController::class, 'view'])->name('setting.view');
     Route::post('/setting/updateStatus/{id}', [SettingController::class, 'updateStatus']);

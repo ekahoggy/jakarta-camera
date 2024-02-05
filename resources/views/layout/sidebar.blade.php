@@ -317,7 +317,7 @@
                     <ul class="dropdown-menu" style="display: none;">
                         <li><a class="nav-link" href="{{ route('faq.index') }}">FAQ</a></li>
                         <li><a class="nav-link" href="{{ route('subscription.index') }}">Subscription</a>
-                        <li><a class="nav-link" href="{{ route('subscription.index') }}">SEO</a>
+                        <li><a class="nav-link" href="{{ route('seo.index') }}">SEO</a>
                         </li>
                     </ul>
                 </li>
