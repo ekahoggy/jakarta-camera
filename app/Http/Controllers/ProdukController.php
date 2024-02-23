@@ -20,7 +20,7 @@ class ProdukController extends Controller
 
         $kategori = Kategori::get();
         $foto = ProdukFoto::where('is_main', 1)->get();
-        
+
         foreach ($model as $key => $value) {
             $value->arr_tags = explode(',', $value->tags);
             //get foto produk main
@@ -39,7 +39,7 @@ class ProdukController extends Controller
 
         return view('page.produk.index', ['list' => $model]);
     }
-    
+
     public function create() {
         $kategori = Kategori::get();
 
@@ -49,7 +49,7 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         try {
-
+            dd($request);
             $payload = [
                 "id"            => Generator::uuid4()->toString(),
                 "sku"           => MoodStudio::skuProduk(),
@@ -114,7 +114,7 @@ class ProdukController extends Controller
 
         $kategori = Kategori::get();
         $foto = ProdukFoto::where('m_produk_id', $id)->get();
-        
+
         return view('page.produk.edit', ['model' => $model, 'foto' => $foto, 'listKategori' => $kategori]);
     }
 
@@ -131,7 +131,7 @@ class ProdukController extends Controller
 
         return response()->json(['success' => true, "data" => $model]);
     }
-    
+
     public function getProdukById(Request $request, $id){
         $data = Produk::where('is_active', 1)->where('id', $id)->first();
 

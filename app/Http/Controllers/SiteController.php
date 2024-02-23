@@ -8,11 +8,14 @@ use App\Models\Country;
 use App\Models\Donations;
 use App\Models\Faq;
 use App\Models\GaleryPage;
+use App\Models\Kategori;
 use App\Models\Kegiatan;
 use App\Models\Media;
 use App\Models\Page;
 use App\Models\PaymentGateway;
 use App\Models\PaymentGatewayDetail;
+use App\Models\Produk;
+use App\Models\ProdukFoto;
 use App\Models\Slider;
 use App\Models\Subscription;
 use App\Models\Testimoni;
@@ -42,7 +45,7 @@ class SiteController extends Controller
 
     public function city() {
         $kotaEvent = Kegiatan::where('is_status', 1)->orderBy('date', 'DESC')->get();
-        
+
         $arr = [];
         foreach ($kotaEvent as $value) {
             $arr[] = $value->city;
@@ -59,7 +62,7 @@ class SiteController extends Controller
 
     public function place() {
         $placeEvent = Kegiatan::orderBy('date', 'DESC')->get();
-        
+
         if(!empty($placeEvent)){
             return response()->json(['status_code' => 200, 'data' => $placeEvent], 200);
         }
@@ -90,7 +93,7 @@ class SiteController extends Controller
 
         foreach ($payment as $key => $value) {
             $value->folder = 'bank/';
-            
+
             if($value->payment_gateway_id === "3"){
                 $value->folder = 'ewallet/';
             }
@@ -109,16 +112,47 @@ class SiteController extends Controller
         }
     }
 
+    public function kategori() {
+        $kategori = Kategori::orderBy('kategori', 'ASC')->get();
+
+        if($kategori){
+            return response()->json(['status_code' => 200, 'data' => $kategori], 200);
+        }
+        else{
+            return response()->json(['status_code' => 422, 'pesan' => 'Data Tidak ada'], 422);
+        }
+    }
+
     public function slider() {
         $slider = Slider::where('is_status', 1)->orderBy('index_position', 'ASC')->get();
-        $url = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/';
 
         if($slider){
-            foreach($slider as $item){
-                $item->picture = $url . $item->picture;
-                $item->content = strip_tags($item->content);
-            }
             return response()->json(['status_code' => 200, 'data' => $slider], 200);
+        }
+        else{
+            return response()->json(['status_code' => 422, 'pesan' => 'Data Tidak ada'], 422);
+        }
+    }
+
+    public function produk() {
+        $kategori = Kategori::orderBy('kategori', 'ASC')->get();
+        $produk = Produk::where('is_active', 1)->orderBy('nama', 'ASC')->get();
+        $produk_foto = ProdukFoto::where('is_active', 1)->orderBy('urutan', 'ASC')->get();
+
+        if($produk){
+            foreach($produk as $item){
+                foreach ($kategori as $kat) {
+                    if($kat->id == $item->m_kategori_id){
+                        $item->kategori = $kat->kategori;
+                    }
+                }
+                foreach ($produk_foto as $foto) {
+                    if($foto->m_produk_id == $item->id && $foto->is_main === "1"){
+                        $item->foto = $foto->foto;
+                    }
+                }
+            }
+            return response()->json(['status_code' => 200, 'data' => $produk], 200);
         }
         else{
             return response()->json(['status_code' => 422, 'pesan' => 'Data Tidak ada'], 422);
@@ -186,9 +220,9 @@ class SiteController extends Controller
         $galeri = GaleryPage::where('m_pages', $root->id)->get();
         $root->content = strip_tags($root->content);
         $root->content_en = strip_tags($root->content_en);
-        
+
         $url = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/';
-        
+
         if($galeri){
             foreach ($galeri as $item) {
                 $item->file = $url . $item->photo;
@@ -206,7 +240,7 @@ class SiteController extends Controller
         $sponsor = Page::where('is_status', 2)->where('to', 5)->first();
         $onetime = Page::where('is_status', 2)->where('to', 6)->first();
         $url = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/';
-        
+
         $sponsor->content = strip_tags($sponsor->content);
         $sponsor->content_en = strip_tags($sponsor->content_en);
         $sponsor->file = $url . $sponsor->picture;
@@ -242,7 +276,7 @@ class SiteController extends Controller
     public function testimoni() {
         $testimoni = Testimoni::where('is_status', 1)->orderBy('created_at', 'DESC')->get();
         $url = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/';
-        
+
         if($testimoni){
             foreach ($testimoni as $item) {
                 $item->photo = $url . $item->photo;
@@ -253,14 +287,14 @@ class SiteController extends Controller
             return response()->json(['status_code' => 422, 'pesan' => 'Data Tidak ada'], 422);
         }
     }
-    
+
     public function subscription(Request $request) {
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required'
         ]);
-        
+
         try {
             $payload = [
                 "first_name" => $request->first_name,
@@ -268,7 +302,7 @@ class SiteController extends Controller
                 "email" => $request->email,
                 "is_subscribed" => '1'
             ];
-            
+
             $sub = Subscription::create($payload);
             return response()->json(['status_code' => 200, 'data' => $sub], 200);
         } catch (\Throwable $th) {
@@ -314,10 +348,10 @@ class SiteController extends Controller
                     'phone' => $donation->phone_number
                 ),
             );
-            
+
             $snapToken = \Midtrans\Snap::getSnapToken($params);
             $model = Donations::findOrFail($donation->id);
-            
+
             $model->update(['snap_token' => $snapToken]);
 
             $data = [
@@ -409,7 +443,7 @@ class SiteController extends Controller
             $model->masked_card = $this->mask_number($model->masked_card);
 
             Mail::to($model->email)->send(new DonasiDoneEmail($model));
-            
+
             return response()->json(['status_code' => 200, 'data' => $model], 200);
         } catch (\Throwable $th) {
             return response()->json(['status_code' => 422, 'pesan' => $th], 422);
@@ -436,12 +470,12 @@ class SiteController extends Controller
             $value->df = date('Y-m-d', strtotime($value->date));
             $value->intro = strip_tags($value->intro);
             $value->intro_en = strip_tags($value->intro_en);
-            
+
             //update when date is not available
             if(strtotime($value->df) < strtotime($now) && $value->is_status == 1 && $getCountData < 5){
                 Kegiatan::findOrFail($value->id)->update(['is_status' => 0]);
             }
-            
+
             if(strtotime($value->df) == strtotime($now) && $value->is_status == 0 && $getCountData < 5){
                 Kegiatan::findOrFail($value->id)->update(['is_status' => 1]);
             }

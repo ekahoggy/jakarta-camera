@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MServiceController;
 use App\Http\Controllers\MResourceController;
 use App\Http\Controllers\MailController;
-use App\Http\Controllers\MediaController;
+use App\Http\Controllers\web\AuthController;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Artisan;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-
 });
 
 Route::get('/get-all-service', [MServiceController::class, 'getAllService']);

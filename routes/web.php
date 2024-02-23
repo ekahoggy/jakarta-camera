@@ -228,29 +228,35 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('authentic
 
 Route::get('/sendVerification', [LoginController::class, 'sendVerification'])->name('sendVerification');
 
-Route::prefix('site')->group(function (){
-    Route::get('/slider', [SiteController::class, 'slider'])->name('slider');
-    Route::get('/faq', [SiteController::class, 'faq'])->name('faq');
-    Route::get('/page', [SiteController::class, 'page'])->name('page');
-    Route::get('/event', [SiteController::class, 'event'])->name('event');
-    Route::get('/galeri', [SiteController::class, 'galeri'])->name('galeri');
-    Route::get('/testimoni', [SiteController::class, 'testimoni'])->name('testimoni');
-    Route::get('/widgetPageDonasi', [SiteController::class, 'widgetPageDonasi'])->name('widgetPageDonasi');
+Route::prefix('api')->group(function (){
+    Route::prefix('v1')->group(function (){
+        Route::prefix('public')->group(function (){
+            Route::get('/kategori', [SiteController::class, 'kategori'])->name('kategori');
+            Route::get('/produk', [SiteController::class, 'produk'])->name('produk');
+            Route::get('/slider', [SiteController::class, 'slider'])->name('slider');
+            Route::get('/faq', [SiteController::class, 'faq'])->name('faq');
+            Route::get('/page', [SiteController::class, 'page'])->name('page');
+            Route::get('/event', [SiteController::class, 'event'])->name('event');
+            Route::get('/galeri', [SiteController::class, 'galeri'])->name('galeri');
+            Route::get('/testimoni', [SiteController::class, 'testimoni'])->name('testimoni');
+            Route::get('/widgetPageDonasi', [SiteController::class, 'widgetPageDonasi'])->name('widgetPageDonasi');
 
-    Route::get('/country', [SiteController::class, 'country'])->name('country');
-    Route::get('/city', [SiteController::class, 'city'])->name('city');
-    Route::get('/place', [SiteController::class, 'place'])->name('place');
-    Route::get('/widget', [SiteController::class, 'widget'])->name('widget');
-    Route::get('/widgetSetting', [SiteController::class, 'settingWidget'])->name('settingWidget');
+            Route::get('/country', [SiteController::class, 'country'])->name('country');
+            Route::get('/city', [SiteController::class, 'city'])->name('city');
+            Route::get('/place', [SiteController::class, 'place'])->name('place');
+            Route::get('/widget', [SiteController::class, 'widget'])->name('widget');
+            Route::get('/widgetSetting', [SiteController::class, 'settingWidget'])->name('settingWidget');
 
-    Route::post('/subscription', [SiteController::class, 'subscription']);
-    Route::post('/donation', [SiteController::class, 'donation']);
-    Route::post('/updateDonation', [SiteController::class, 'updateDonation']);
-    Route::post('/midtrans-callback', [SiteController::class, 'midtransCallback']);
-    Route::post('/notification-url', [SiteController::class, 'notificationURL']);
+            Route::post('/subscription', [SiteController::class, 'subscription']);
+            Route::post('/donation', [SiteController::class, 'donation']);
+            Route::post('/updateDonation', [SiteController::class, 'updateDonation']);
+            Route::post('/midtrans-callback', [SiteController::class, 'midtransCallback']);
+            Route::post('/notification-url', [SiteController::class, 'notificationURL']);
 
-    Route::get('/payment', [SiteController::class, 'payment'])->name('payment');
-    Route::get('/paymentDetail', [SiteController::class, 'paymentDetail'])->name('paymentDetail');
+            Route::get('/payment', [SiteController::class, 'payment'])->name('payment');
+            Route::get('/paymentDetail', [SiteController::class, 'paymentDetail'])->name('paymentDetail');
 
-    Route::get('/cronjob', [SiteController::class, 'cronjob'])->name('cronjob');
+            Route::get('/cronjob', [SiteController::class, 'cronjob'])->name('cronjob');
+        });
+    });
 });

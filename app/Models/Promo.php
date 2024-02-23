@@ -21,6 +21,7 @@ class Promo extends Model
         'jam_mulai',
         'jam_selesai',
         'promo_min_beli',
+        'is_flashsale',
         'is_status',
         'created_by',
         'updated_by'

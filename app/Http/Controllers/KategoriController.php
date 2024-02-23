@@ -8,18 +8,15 @@ use Exception;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Providers\MoodStudioProvider as MoodStudio;
+use Ramsey\Uuid\Uuid as Generator;
 
 class KategoriController extends Controller
 {
     public function index() {
-        $model = Kategori::whereNull('induk_id')->orderBy('created_at', 'DESC');
-        $model = $model->paginate(100);
+        $categories  = Kategori::whereNull('induk_id')->orderBy('created_at', 'DESC')->get();
+        $allCategories = Kategori::all();
 
-        foreach ($model as $key => $value) {
-            $value->childs = MoodStudio::oneTreeView('m_kategori', $value->id);
-        }
-
-        return view('page.kategori.index', ['list' => $model]);
+        return view('page.kategori.index', compact('categories','allCategories'));
     }
 
     public function create() {
@@ -35,18 +32,19 @@ class KategoriController extends Controller
             $img = str_replace($url, "", $request->icon);
 
             $payload = [
+                "id"            => Generator::uuid4()->toString(),
                 "icon"          => $img,
                 "slug"          => MoodStudio::createSlug($request->kategori),
                 "kategori"      => $request->kategori,
                 "induk_id"      => $request->induk_id,
                 "keterangan"    => $request->keterangan,
             ];
-            $kategori = Kategori::create($payload);
+            Kategori::create($payload);
 
             //log user
             $log = [
                 'ref_name'  => 'm_kategori',
-                'ref_id'    => $kategori->id,
+                'ref_id'    => $payload['id'],
                 'notes'     => 'menambahkan kategori',
                 'created_by'=> auth()->user()->id
             ];
@@ -97,6 +95,7 @@ class KategoriController extends Controller
                 'created_by'=> auth()->user()->id
             ];
             LogUser::create($log);
+
             return redirect()->route('kategori.index')->with('success', 'Saved successfully.');
         } catch (Exception $e) {
             Alert::error('Error', 'There is an error.');

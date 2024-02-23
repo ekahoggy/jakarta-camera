@@ -150,16 +150,16 @@
                         <div class="col-md-12 px-4 bhs-indonesia">
                             <div class="form-group">
                                 <label for="image">Gambar Produk</label>
-
                                 <div class="upload__box">
                                     <div class="upload__btn-box">
                                         <label class="upload__btn">
-                                            <i class="fa fa-plus"> Upload Foto Produk</i>
+                                            <i class="fa fa-plus"></i>&nbsp;Upload Foto Produk
                                             <input type="file" data-max_length="20" accept="image/*"
                                                 class="upload__inputfile" name="foto_produk[]" multiple>
                                         </label>
                                     </div>
                                     <div class="upload__img-wrap"></div>
+                                    <div class="upload__img-text"></div>
                                 </div>
                             </div>
                         </div>
@@ -256,11 +256,13 @@
 
         function ImgUpload() {
             var imgWrap = "";
+            var nameWrap = "";
             var imgArray = [];
 
             $('.upload__inputfile').each(function() {
                 $(this).on('change', function(e) {
                     imgWrap = $(this).closest('.upload__box').find('.upload__img-wrap');
+                    nameWrap = $(this).closest('.upload__box').find('.upload__img-text');
                     var maxLength = $(this).attr('data-max_length');
 
                     var files = e.target.files;
@@ -293,8 +295,18 @@
                                         e.target.result + ")' data-number='" + $(
                                             ".upload__img-close").length + "' data-file='" + f
                                         .name +
-                                        "' class='img-bg'><div class='upload__img-close'></div></div></div>";
+                                        "' class='img-bg'><div class='upload__img-close'></div></div>"+
+                                        "<input class='form-control form-control-sm' id='nama_gambar' name='nama_gambar[]' style='max-width:180px;'"+
+                                            "value='' rows='1' "+
+                                            "placeholder='Nama Gambar'>"+
+                                        "</div>";
+
+                                    var name =
+                                    // "<div class='form-group'> "+
+                                    // "</div>";
+
                                     imgWrap.append(html);
+                                    // nameWrap.append(name);
                                     iterator++;
                                 }
                                 reader.readAsDataURL(f);
@@ -316,54 +328,43 @@
             });
         }
 
-        // Get the tags and input elements from the DOM 
+        // Get the tags and input elements from the DOM
         const tags = document.getElementById('tags');
         const value_tags = document.getElementById('tags_value');
         const input = document.getElementById('input-tag');
 
-        // Add an event listener for keydown on the input element 
+        // Add an event listener for keydown on the input element
         input.addEventListener('keydown', function(event) {
-
-            // Check if the key pressed is 'Enter' 
+            // Check if the key pressed is 'Enter'
             if (event.key === 'Enter') {
-
-                // Prevent the default action of the keypress 
-                // event (submitting the form) 
+                // Prevent the default action of the keypress
+                // event (submitting the form)
                 event.preventDefault();
-
-                // Create a new list item element for the tag 
+                // Create a new list item element for the tag
                 const tag = document.createElement('li');
-
-                // Get the trimmed value of the input element 
+                // Get the trimmed value of the input element
                 const tagContent = input.value.trim();
-
-                // If the trimmed value is not an empty string 
+                // If the trimmed value is not an empty string
                 if (tagContent !== '') {
-
-                    // Set the text content of the tag to  
-                    // the trimmed value 
+                    // Set the text content of the tag to
+                    // the trimmed value
                     tag.innerText = tagContent;
-
-                    // Add a delete button to the tag 
+                    // Add a delete button to the tag
                     tag.innerHTML += '<button class="delete-button">X</button>';
-
-                    // Append the tag to the tags list 
+                    // Append the tag to the tags list
                     tags.appendChild(tag);
-
-                    // Clear the input element's value 
+                    // Clear the input element's value
                     input.value = '';
                     value_tags.value += tagContent + ', ';
                 }
             }
         });
 
-        // Add an event listener for click on the tags list 
+        // Add an event listener for click on the tags list
         tags.addEventListener('click', function(event) {
-
-            // If the clicked element has the class 'delete-button' 
+            // If the clicked element has the class 'delete-button'
             if (event.target.classList.contains('delete-button')) {
-
-                // Remove the parent element (the tag) 
+                // Remove the parent element (the tag)
                 event.target.parentNode.remove();
             }
         });

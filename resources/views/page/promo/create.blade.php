@@ -93,7 +93,21 @@
                                 <div class="form-group">
                                     <label for="promo_min_beli">Minimal Pembelian</label>
                                     <input class="form-control form-control-sm" id="promo_min_beli" name="promo_min_beli"
-                                        value="{{ old('promo_min_beli') }}" placeholder="Masukkan Minimal Pembelian">
+                                        value="{{ old('promo_min_beli') }}" placeholder="Masukkan Minimal Pembelian" style="max-width: 150px;">
+                                </div>
+                            </div>
+                            <div class="col-md-12 bhs-indonesia">
+                                <div class="form-group">
+                                    <label class="required">Flashsale</label>
+                                    <div class="col-sm-12 p-0">
+                                        <label class="custom-switch p-0" style="cursor: pointer">
+                                            Tidak &nbsp;&nbsp;
+                                            <input type="checkbox" name="is_flashsale" id="is_flashsale" class="custom-switch-input">
+                                            <span class="custom-switch-indicator"></span>
+                                            &nbsp;&nbsp;
+                                            Ya
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +117,7 @@
                                     <thead>
                                         <tr class="bg-primary text-light">
                                             <td width="5%" rowspan="2" class="text-center vertical-align-middle"><i
-                                                    class="fa fa-plus" onclick="addRow('table-detail')"></i></td>
+                                                    class="fa fa-plus" onclick="openModalProduk()"></i></td>
                                             <td colspan="4" class="text-center">Produk</td>
                                         </tr>
                                         <tr class="bg-primary text-light">
@@ -131,6 +145,18 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalProduk" tabindex="-1" role="dialog" aria-labelledby="modalProdukLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    @include('page.produk.modal-produk')
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
@@ -143,6 +169,7 @@
         @endif
 
         $(function() {
+            $('#modalProduk').appendTo("body")
             $('#timepicker').timepicker({
                 showMeridian: false,
                 showInputs: true
@@ -158,15 +185,22 @@
             });
         });
 
+        function openModalProduk() {
+            $('#modalProduk').modal('show');
+            addRow();
+        }
+
+        let idx = 1;
         let selectedProduk = [];
 
-        function addRow(tableID) {
+        function addRow() {
             // Get a reference to the table
-            let tableRef = document.getElementById(tableID);
+            let tableRef = document.getElementById('table-detail');
             // Insert a row at the end of the table
             let newRow = tableRef.insertRow(-1);
             const rowId = tableRef.rows.length - 2;
             newRow.id = rowId;
+            idx = parseInt(newRow.id);
 
             // tombol hapus
             let iconDelete = newRow.insertCell(0);
@@ -177,15 +211,11 @@
             $(newIcon).html(adding_new1);
             iconDelete.appendChild(newIcon);
 
-            // select produk
+            // produk
             let produk = newRow.insertCell(1);
             let produkComp = document.createElement('div');
-            produkComp.setAttribute("id", "select-produk-" + newRow.id);
-            // produkComp.className = "text-center vertical-align-middle";
-            var adding_new2 = '<div class="form-group"><div class="form-group"><select id="detail-produk-' + newRow.id +
-                '" name="listPromoProduk[]" onchange="search(' + newRow.id +
-                ')"><option value="">Pilih Produk</option>@foreach ($listProduk as $item)<option value="{{ $item->id }}">{{ $item->nama }}</option>@endforeach</select></div></div>';
-            $(produkComp).html(adding_new2);
+            produkComp.setAttribute("id", "produk-" + newRow.id);
+            $(produkComp).html('');
             produk.appendChild(produkComp);
 
             // harga produk
@@ -199,35 +229,57 @@
             let jumlah = newRow.insertCell(3);
             let jumlahComp = document.createElement('div');
             jumlahComp.setAttribute("id", "jumlah-produk-" + newRow.id);
-            $(jumlahComp).html('');
+            $(jumlahComp).html(
+                '<input class="form-control form-control-sm" id="promo" name="jumlah-'+ newRow.id +'" value="1" placeholder="Jumlah Promo">'
+                );
             jumlah.appendChild(jumlahComp);
 
             // sisa produk
             let sisa = newRow.insertCell(4);
             let sisaComp = document.createElement('div');
             sisaComp.setAttribute("id", "sisa-produk-" + newRow.id);
-            $(sisaComp).html('');
+            $(sisaComp).html('<span>-</span>');
             sisa.appendChild(sisaComp);
 
         }
 
-        function search(id) {
-            var compSelectProduk = document.getElementById("detail-produk-" + id);
-            var id_produk = compSelectProduk.value;
-            axios.get(`/produk/getProdukById/` + id_produk).then(res => {
+        function selectProduk() {
+            var e = document.getElementById("selectProdukId");
+            var value = e.value;
+
+            axios.get(`/produk/getProdukById/` + value).then(res => {
                 if (res.data.success) {
                     let data = res.data.data;
-                    let harga = document.getElementById("harga-produk-" + id);
-                    let jumlah = document.getElementById("jumlah-produk-" + id);
-                    let sisa = document.getElementById("sisa-produk-" + id);
+                    let produk = document.getElementById("produk-" + idx);
+                    let harga = document.getElementById("harga-produk-" + idx);
+                    let jumlah = document.getElementById("jumlah-produk-" + idx);
+                    let sisa = document.getElementById("sisa-produk-" + idx);
 
-                    $(harga).html('<span>Rp. ' + data.harga + '</span>');
+                    $(produk).html('<span>' + data.nama + '</span>');
+                    $(harga).html('<span class="currency">Rp. ' + data.harga + '</span>');
+
+                    let arr = {
+                        "idx" : idx,
+                        "id" : data.id,
+                        "nama" : data.nama,
+                        "harga" : data.harga,
+                        "jumlah" : 1,
+                    };
+
+                    selectedProduk.push(arr);
+
+                    console.log(selectedProduk);
+                    $('#modalProduk').modal('hide');
                 }
             });
         }
 
-        function selectProduct(data) {
-
+        let x = document.querySelectorAll(".currency");
+        for (let i = 0, len = x.length; i < len; i++) {
+            let num = Number(x[i].innerHTML)
+                .toLocaleString('en');
+            x[i].innerHTML = num;
+            x[i].classList.add("currSign");
         }
     </script>
 @endsection
