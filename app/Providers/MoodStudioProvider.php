@@ -44,4 +44,11 @@ class MoodStudioProvider extends ServiceProvider
 
         return $prefix.$data + 1;
     }
+
+    public static function kodePromo(){
+        $prefix = 'PJC-';
+        $data = DB::table('m_promo')->selectRaw('*')->count();
+
+        return $prefix.$data + 1;
+    }
 }

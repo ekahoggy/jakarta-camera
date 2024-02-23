@@ -76,7 +76,8 @@ class ProdukController extends Controller
             $urutan = 1;
             foreach ($uploadedImage as $key => $value) {
                 $filename = $payload['sku'].$urutan;
-                $original = $filename . '.' . $value->getClientOriginalExtension();
+                // $original = $filename . '.' . $value->getClientOriginalExtension();
+                $original = $request->nama_gambar[$key] . '.' . $value->getClientOriginalExtension();
                 $value->move(public_path('img/media/product/'), $original);
 
                 $payload_foto = [

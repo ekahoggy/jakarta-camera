@@ -37,6 +37,18 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
+Route::get('/route-cache', function() {
+    $exitCode = Artisan::call('route:cache');
+    $exitCode = Artisan::call('config:cache');
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('config:clear');
+    $exitCode = Artisan::call('view:clear');
+    $exitCode = Artisan::call('optimize:clear');
+    $exitCode = Artisan::call('optimize');
+
+    return response(['Berhasil melakukan optimasi cache']);
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
     Route::get('/detail-event/{id}', [DashboardController::class, 'getDetailHistoryEvent'])->middleware('auth');
@@ -122,8 +134,8 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::prefix('donasi')->group(function (){
         Route::get('/', [DonationController::class, 'index'])->name('donasi.index');
-        Route::get('/one-time-donation', [DonationController::class, 'index'])->name('donasi.index');
-        Route::get('/sponsorship-anak', [DonationController::class, 'index'])->name('donasi.index');
+        // Route::get('/one-time-donation', [DonationController::class, 'index'])->name('donasi.index');
+        // Route::get('/sponsorship-anak', [DonationController::class, 'index'])->name('donasi.index');
         Route::get('/create', [DonationController::class, 'create'])->name('donasi.create');
         Route::post('/store', [DonationController::class, 'store'])->name('donasi.store');
         Route::get('/edit/{id}', [DonationController::class, 'edit'])->name('donasi.edit');
@@ -230,17 +242,19 @@ Route::get('/sendVerification', [LoginController::class, 'sendVerification'])->n
 
 Route::prefix('api')->group(function (){
     Route::prefix('v1')->group(function (){
+
         Route::prefix('public')->group(function (){
+            // user post
+            Route::post('/checkEmail', [UserController::class, 'checkEmail']);
+            Route::post('/register', [UserController::class, 'register']);
+            Route::post('/login', [UserController::class, 'login']);
+
             // public
             Route::get('/kategori', [KategoriController::class, 'kategori'])->name('kategori');
             Route::get('/produk', [ProdukController::class, 'produk'])->name('produk');
             Route::get('/getProdukSlug', [ProdukController::class, 'getProdukSlug'])->name('getProdukSlug');
             Route::get('/katalog', [ProdukController::class, 'katalog'])->name('katalog');
             Route::get('/slider', [SiteController::class, 'slider'])->name('slider');
-
-            // user post
-            Route::post('/checkEmail', [UserController::class, 'checkEmail']);
-            Route::post('/register', [UserController::class, 'register']);
 
             Route::get('/faq', [SiteController::class, 'faq'])->name('faq');
             Route::get('/page', [SiteController::class, 'page'])->name('page');

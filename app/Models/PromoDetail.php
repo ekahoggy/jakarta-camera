@@ -26,3 +26,4 @@ class PromoDetail extends Model
         'id' => 'string'
     ];
 }
+

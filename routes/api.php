@@ -28,17 +28,6 @@ Route::get('/get-all-resources', [MResourceController::class, 'getAllResource'])
 Route::post('/send-email', [MailController::class, 'sendEmail']);
 Route::get('/download-pdf', [MServiceController::class, 'downloadPdf']);
 
-Route::get('/route-cache', function() {
-    $exitCode = Artisan::call('route:cache');
-    $exitCode = Artisan::call('config:cache');
-    $exitCode = Artisan::call('cache:clear');
-    $exitCode = Artisan::call('config:clear');
-    $exitCode = Artisan::call('view:clear');
-    $exitCode = Artisan::call('optimize:clear');
-    $exitCode = Artisan::call('optimize');
-
-    return response(['Berhasil melakukan optimasi cache']);
-});
 
 Route::get('/storage-link', function() {
     $exitCode = Artisan::call('storage:link');

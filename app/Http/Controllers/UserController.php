@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid as Generator;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -139,12 +140,57 @@ class UserController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function checkEmail(Request $request){
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
 
+    public function login(Request $request){
+        $credentials = [
+            'email'     => $request->email,
+            'password'  => $request->password
+        ];
+
+        $now = date('Y-m-d H:i:s');
+
+        if(Auth::attempt($credentials)) {
+            $userUpdate = User::where('email', $credentials['email'])->first();
+            $userUpdate->update([
+                'kode' => $this->generateRandomString(6),
+                'email_expired' => $now
+            ]);
+            return response()->json(['status_code' => 200, 'data' => $userUpdate], 200);
+        }
+        else{
+            return response()->json(['status_code' => 422, 'pesan' => 'Data Tidak ada'], 422);
+        }
+
+    }
+
+    public function checkEmail(Request $request){
+        $userModel = new User();
+
+        $user = $userModel->checkEmail($request->email);
+
+        return response()->json(['status_code' => 200, 'data' => $user ? true : false ], 200);
     }
 
     public function register(Request $request)
     {
+        $this->validate($request, [
+            'username' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'phone_code' => 'required',
+            'phone_number' => 'required'
+        ]);
+
         $payload = [
             "id"        => Generator::uuid4()->toString(),
             "username"  => $request->username,
@@ -153,7 +199,8 @@ class UserController extends Controller
             "password"  => Hash::make($request->password),
             "phone_code" => '+62',
             "phone_number" => $request->phone_number,
-            "address" => $request->address
+            "address" => $request->address,
+            "roles_id" => 8,
         ];
 
         $user = User::create($payload);

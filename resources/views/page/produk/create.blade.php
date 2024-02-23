@@ -99,7 +99,7 @@
                                         <label for="link_shopee">Link Shopee</label>
                                         <input class="form-control form-control-sm" id="link_shopee" name="link_shopee"
                                             value="{{ old('link_shopee') }}" rows="5"
-                                            placeholder="Masukkan Link Shopee" required>
+                                            placeholder="Masukkan Link Shopee">
                                     </div>
                                 </div>
                                 <div class="col-md-12 bhs-indonesia">
@@ -107,7 +107,7 @@
                                         <label for="link_tokped">Link Tokopedia</label>
                                         <input class="form-control form-control-sm" id="link_tokped" name="link_tokped"
                                             value="{{ old('link_tokped') }}" rows="5"
-                                            placeholder="Masukkan Link Tokopedia" required>
+                                            placeholder="Masukkan Link Tokopedia">
                                     </div>
                                 </div>
                                 <div class="col-md-12 bhs-indonesia">
@@ -115,7 +115,7 @@
                                         <label for="link_bukalapak">Link Bukalapak</label>
                                         <input class="form-control form-control-sm" id="link_bukalapak"
                                             name="link_bukalapak" value="{{ old('link_bukalapak') }}" rows="5"
-                                            placeholder="Masukkan Link Bukalapak" required>
+                                            placeholder="Masukkan Link Bukalapak">
                                     </div>
                                 </div>
                                 <div class="col-md-12 bhs-indonesia">
@@ -123,7 +123,7 @@
                                         <label for="link_lazada">Link Lazada</label>
                                         <input class="form-control form-control-sm" id="link_lazada" name="link_lazada"
                                             value="{{ old('link_lazada') }}" rows="5"
-                                            placeholder="Masukkan Link Lazada" required>
+                                            placeholder="Masukkan Link Lazada">
                                     </div>
                                 </div>
                                 <div class="col-md-12 bhs-indonesia">
@@ -131,7 +131,7 @@
                                         <label for="link_blibli">Link Blibli</label>
                                         <input class="form-control form-control-sm" id="link_blibli" name="link_blibli"
                                             value="{{ old('link_blibli') }}" rows="5"
-                                            placeholder="Masukkan Link Lazada" required>
+                                            placeholder="Masukkan Link Lazada">
                                     </div>
                                 </div>
                                 <div class="col-md-12 bhs-indonesia">
@@ -298,7 +298,7 @@
                                         "' class='img-bg'><div class='upload__img-close'></div></div>"+
                                         "<input class='form-control form-control-sm' id='nama_gambar' name='nama_gambar[]' style='max-width:180px;'"+
                                             "value='' rows='1' "+
-                                            "placeholder='Nama Gambar'>"+
+                                            "placeholder='Nama Gambar' required>"+
                                         "</div>";
 
                                     var name =

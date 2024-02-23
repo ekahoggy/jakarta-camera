@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\LogUser;
 use App\Models\Produk;
 use App\Models\Promo;
+use App\Models\PromoDetail;
 use Illuminate\Http\Request;
 use App\Providers\MoodStudioProvider as MoodStudio;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use Ramsey\Uuid\Uuid as Generator;
 
@@ -28,60 +30,50 @@ class PromoController extends Controller
 
     public function store(Request $request)
     {
+
         try {
-            dd($request);
             $payload = [
-                "id"            => Generator::uuid4()->toString(),
-                "sku"           => MoodStudio::skuProduk(),
-                "nama"          => $request->nama,
-                "harga"         => str_replace('.', '', $request->harga),
-                "min_beli"      => $request->min_beli,
-                "slug"          => MoodStudio::createSlug($request->nama),
-                "m_kategori_id" => $request->m_kategori_id,
-                "deskripsi"     => $request->deskripsi,
-                "detail_produk" => $request->detail_produk,
-                "in_box"        => $request->in_box,
-                "link_shopee"   => $request->link_shopee,
-                "link_tokped"   => $request->link_tokped,
-                "link_bukalapak" => $request->link_bukalapak,
-                "link_lazada"   => $request->link_lazada,
-                "link_blibli"   => $request->link_blibli,
-                "tags"          => $request->tags,
-                "created_by"    => auth()->user()->id
+                "id"                => Generator::uuid4()->toString(),
+                "kode"              => MoodStudio::kodePromo(),
+                "promo"             => $request->promo,
+                "tanggal_mulai"     => $request->tanggal_mulai,
+                "tanggal_selesai"   => $request->tanggal_selesai,
+                "jam_mulai"         => $request->jam_mulai,
+                "jam_selesai"       => $request->jam_selesai,
+                "promo_min_beli"    => $request->promo_min_beli,
+                "is_flashsale"      => $request->is_flashsale ? 1 : 0,
+                "created_by"        => auth()->user()->id
             ];
 
             Promo::create($payload);
 
-            //foto produk
-            $uploadedImage = $request->file('foto_produk');
-            $urutan = 1;
-            foreach ($uploadedImage as $key => $value) {
-                $filename = $payload['sku'].$urutan;
-                $original = $filename . '.' . $value->getClientOriginalExtension();
-                $value->move(public_path('img/media/product/'), $original);
-
-                $payload_foto = [
-                    "m_produk_id"   => $payload['id'],
-                    "foto"          => $original,
-                    "urutan"        => $urutan,
-                    "is_main"       => $key === 0 ? 1 : 0,
-                    "created_by"    => auth()->user()->id
+            $detail = [];
+            foreach ($request->detail_promo as $value) {
+                $diskon = ($value['diskon'] / 100) * $value['harga'];
+                $detail[] = [
+                    "id"            => Generator::uuid4()->toString(),
+                    'm_promo_id'    => $payload['id'],
+                    'm_produk_id'   => $value['id'],
+                    'persen' => $value['diskon'],
+                    'nominal'=> (int)$diskon,
+                    'promo_user'    => 0,
+                    'qty'           => $value['jumlah'],
                 ];
-
-                $urutan++;
-                ProdukFoto::create($payload_foto);
             }
+
+            DB::table('m_promo_det')->insert($detail);
+            // PromoDetail::insert($detail);
 
             //log user
             $log = [
-                'ref_name'  => 'm_produk',
+                'ref_name'  => 'm_promo',
                 'ref_id'    => $payload['id'],
-                'notes'     => 'menambahkan produk',
+                'notes'     => 'menambahkan promo ' + $payload['kode'],
                 'created_by'=> auth()->user()->id
             ];
             LogUser::create($log);
 
-            return redirect()->route('produk.index')->with('success', 'Saved successfully.');
+            return redirect()->route('promo.index')->with('success', 'Saved successfully.');
         } catch (Exception $e) {
             Alert::error('Error', 'There is an error.');
             return back();

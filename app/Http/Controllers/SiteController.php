@@ -10,6 +10,7 @@ use App\Models\Faq;
 use App\Models\GaleryPage;
 use App\Models\Kategori;
 use App\Models\Kegiatan;
+use App\Models\LogUser;
 use App\Models\Media;
 use App\Models\Page;
 use App\Models\PaymentGateway;
@@ -19,16 +20,18 @@ use App\Models\ProdukFoto;
 use App\Models\Slider;
 use App\Models\Subscription;
 use App\Models\Testimoni;
+use App\Models\User;
 use App\Models\Widget;
 use App\Models\WidgetDetail;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
+use Ramsey\Uuid\Uuid as Generator;
 
 class SiteController extends Controller
 {
-
     public function index() {
         dd('ok');
     }
