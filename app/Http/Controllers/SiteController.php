@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Mail;
 
 class SiteController extends Controller
 {
+
     public function index() {
         dd('ok');
     }
@@ -112,47 +113,11 @@ class SiteController extends Controller
         }
     }
 
-    public function kategori() {
-        $kategori = Kategori::orderBy('kategori', 'ASC')->get();
-
-        if($kategori){
-            return response()->json(['status_code' => 200, 'data' => $kategori], 200);
-        }
-        else{
-            return response()->json(['status_code' => 422, 'pesan' => 'Data Tidak ada'], 422);
-        }
-    }
-
     public function slider() {
         $slider = Slider::where('is_status', 1)->orderBy('index_position', 'ASC')->get();
 
         if($slider){
             return response()->json(['status_code' => 200, 'data' => $slider], 200);
-        }
-        else{
-            return response()->json(['status_code' => 422, 'pesan' => 'Data Tidak ada'], 422);
-        }
-    }
-
-    public function produk() {
-        $kategori = Kategori::orderBy('kategori', 'ASC')->get();
-        $produk = Produk::where('is_active', 1)->orderBy('nama', 'ASC')->get();
-        $produk_foto = ProdukFoto::where('is_active', 1)->orderBy('urutan', 'ASC')->get();
-
-        if($produk){
-            foreach($produk as $item){
-                foreach ($kategori as $kat) {
-                    if($kat->id == $item->m_kategori_id){
-                        $item->kategori = $kat->kategori;
-                    }
-                }
-                foreach ($produk_foto as $foto) {
-                    if($foto->m_produk_id == $item->id && $foto->is_main === "1"){
-                        $item->foto = $foto->foto;
-                    }
-                }
-            }
-            return response()->json(['status_code' => 200, 'data' => $produk], 200);
         }
         else{
             return response()->json(['status_code' => 422, 'pesan' => 'Data Tidak ada'], 422);

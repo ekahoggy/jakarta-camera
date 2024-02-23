@@ -46,16 +46,14 @@
                 <ul id="tree1">
                     @foreach ($categories as $category)
                         <li>
-                            <div class="container m-0 p-0" style="display: flex; align-items: center;">
+                            {{-- <div class="container m-0 p-0" style="display: flex; align-items: center;"> --}}
                                 <img src="{{ url('img/media/originals/' . $category->icon) }}"
                                     alt="icon {{ $category->kategori }}" width="50px"> {{ $category->kategori }}
 
-                                <a href="{{ route('kategori.edit', $category->id) }}" class="btn btn-primary btn-sm mr-2">
-                                    <i class="fa fa-edit"></i>
+                                <a href="{{ route('kategori.edit', $category->id) }}" class="btn btn-primary btn-sm p-1 fa fa-edit mx-2">
                                 </a>
-                                <button class="btn btn-sm btn-danger fa fa-trash"
-                                    onclick="hapus({{ $category->id }})"></button>
-                            </div>
+                                <button class="btn btn-sm p-1 btn-danger fa fa-trash" onclick="hapus({{ $category->id }})"></button>
+                            {{-- </div> --}}
                             @if (count($category->childs))
                                 @include('page.kategori.child', ['childs' => $category->childs])
                             @endif

@@ -49,7 +49,6 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         try {
-            dd($request);
             $payload = [
                 "id"            => Generator::uuid4()->toString(),
                 "sku"           => MoodStudio::skuProduk(),
@@ -136,5 +135,42 @@ class ProdukController extends Controller
         $data = Produk::where('is_active', 1)->where('id', $id)->first();
 
         return response()->json(['success' => true, "data" => $data]);
+    }
+
+    public function katalog(Request $request) {
+        $produkModel = new Produk();
+        $param = [
+            'kategori'  => $request->kategori
+        ];
+        $produk = $produkModel->getAll($param);
+        if($produk){
+
+            return response()->json(['status_code' => 200, 'data' => $produk], 200);
+        }
+        else{
+            return response()->json(['status_code' => 422, 'pesan' => 'Data Tidak ada'], 422);
+        }
+    }
+
+    public function produk() {
+        $produkModel = new Produk();
+        $produk = $produkModel->getAll();
+        if($produk){
+            return response()->json(['status_code' => 200, 'data' => $produk], 200);
+        }
+        else{
+            return response()->json(['status_code' => 422, 'pesan' => 'Data Tidak ada'], 422);
+        }
+    }
+
+    public function getProdukSlug(Request $request) {
+        $produkModel = new Produk();
+        $produk = $produkModel->getBySlug($request->slug);
+        if($produk){
+            return response()->json(['status_code' => 200, 'data' => $produk], 200);
+        }
+        else{
+            return response()->json(['status_code' => 422, 'pesan' => 'Data Tidak ada'], 422);
+        }
     }
 }

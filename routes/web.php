@@ -231,9 +231,17 @@ Route::get('/sendVerification', [LoginController::class, 'sendVerification'])->n
 Route::prefix('api')->group(function (){
     Route::prefix('v1')->group(function (){
         Route::prefix('public')->group(function (){
-            Route::get('/kategori', [SiteController::class, 'kategori'])->name('kategori');
-            Route::get('/produk', [SiteController::class, 'produk'])->name('produk');
+            // public
+            Route::get('/kategori', [KategoriController::class, 'kategori'])->name('kategori');
+            Route::get('/produk', [ProdukController::class, 'produk'])->name('produk');
+            Route::get('/getProdukSlug', [ProdukController::class, 'getProdukSlug'])->name('getProdukSlug');
+            Route::get('/katalog', [ProdukController::class, 'katalog'])->name('katalog');
             Route::get('/slider', [SiteController::class, 'slider'])->name('slider');
+
+            // user post
+            Route::post('/checkEmail', [UserController::class, 'checkEmail']);
+            Route::post('/register', [UserController::class, 'register']);
+
             Route::get('/faq', [SiteController::class, 'faq'])->name('faq');
             Route::get('/page', [SiteController::class, 'page'])->name('page');
             Route::get('/event', [SiteController::class, 'event'])->name('event');

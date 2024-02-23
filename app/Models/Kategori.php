@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Kategori extends Model
 {
@@ -26,5 +27,15 @@ class Kategori extends Model
 
     public function childs() {
         return $this->hasMany('App\Models\Kategori','induk_id','id') ;
+    }
+
+    public function getKategori(){
+        $data = DB::table('m_kategori')->whereNull('induk_id')->orderBy('created_at', 'DESC')->get();
+
+        foreach ($data as $key => $value) {
+            $data[$key]->child = DB::table('m_kategori')->where('induk_id', $value->id)->get();
+        }
+
+        return $data;
     }
 }

@@ -102,4 +102,16 @@ class KategoriController extends Controller
             return back();
         }
     }
+
+    public function kategori() {
+        $kategoriModel = new kategori();
+        $categories = $kategoriModel->getKategori();
+
+        if($categories){
+            return response()->json(['status_code' => 200, 'data' => $categories], 200);
+        }
+        else{
+            return response()->json(['status_code' => 422, 'pesan' => 'Data Tidak ada'], 422);
+        }
+    }
 }
