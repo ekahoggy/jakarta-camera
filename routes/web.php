@@ -48,7 +48,6 @@ Route::get('/route-cache', function() {
 
     return response(['Berhasil melakukan optimasi cache']);
 });
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
     Route::get('/detail-event/{id}', [DashboardController::class, 'getDetailHistoryEvent'])->middleware('auth');
