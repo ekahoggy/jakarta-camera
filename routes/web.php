@@ -23,6 +23,7 @@ use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\WidgetController;
+use App\Http\Controllers\CartController;
 use App\Models\Donations;
 use Illuminate\Support\Facades\Artisan;
 
@@ -279,5 +280,7 @@ Route::prefix('api')->group(function (){
 
             Route::get('/cronjob', [SiteController::class, 'cronjob'])->name('cronjob');
         });
+
+
     });
 });
