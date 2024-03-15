@@ -25,20 +25,17 @@ class AddressController extends Controller
         ], 200);
     }
 
-    public function addAddress(Request $request) {
+    public function saveAddress(Request $request) {
         $params = $request->all();
 
-        $found = $this->address->checkAddress($params);
-
-        if (isset($found) && !empty($found)) {
-            $params['quantity'] += $found->quantity;
+        if (isset($params['id']) && !empty($params['id'])) {
             $model = $this->address->updateAddress($params);
         } else {
             $model = $this->address->insertAddress($params);
         }
 
         if ($model === true || $model === 1) {
-            return response()->json(['status_code' => 200, 'message' => 'Successfully added to address'], 200);
+            return response()->json(['status_code' => 200, 'message' => 'Successfully save address'], 200);
         }
 
         return response()->json(['status_code' => 422, 'message' => 'An error occurred on the server'], 422);

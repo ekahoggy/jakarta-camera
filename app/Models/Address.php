@@ -62,15 +62,13 @@ class Address extends Model
     }
 
     public function insertAddress($params) {
-        $params['id'] = Generator::uuid4()->toString();
         return DB::table('users_address')->insert($params);
     }
 
     public function updateAddress($params) {
-        $payload['user_id'] = $params['user_id'];
-        $payload['product_id'] = $params['product_id'];
-
-        return DB::table('users_address')->where($payload)->update($params);
+        $payload = $params;
+        unset($payload['id']);
+        return DB::table('users_address')->where(['id' => $params['id']])->update($params);
     }
 
     public function changeAddress($params) {
