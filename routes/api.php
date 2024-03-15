@@ -53,6 +53,7 @@ Route::prefix('v1')->group(function (){
     // Cart
     Route::prefix('address')->group(function (){
         Route::get('/get', [AddressController::class, 'getAddress'])->name('getAddress');
+        Route::get('/edit', [AddressController::class, 'getAddressById'])->name('getAddressById');
         Route::post('/save', [AddressController::class, 'saveAddress'])->name('saveAddress');
         Route::post('/update', [AddressController::class, 'updateAddress'])->name('updateAddress');
         Route::post('/delete', [AddressController::class, 'deleteAddress'])->name('deleteAddress');

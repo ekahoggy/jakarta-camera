@@ -30,10 +30,12 @@ class Address extends Model
         'postal_code',
         'address',
         'is_active',
+        'created_at',
+        'updated_at',
     ];
 
     public function getAddress($params) {
-        $data = DB::table('users_address')
+        $query = DB::table('users_address')
             ->select(
                 'users_address.*', 
                 'village.desa as village_name', 
@@ -44,10 +46,17 @@ class Address extends Model
             ->leftJoin('village', 'village.id', '=', 'users_address.village_id')
             ->leftJoin('subdistrict', 'subdistrict.id', '=', 'users_address.subdistrict_id')
             ->leftJoin('city', 'city.id', '=', 'users_address.city_id')
-            ->leftJoin('province', 'province.id', '=', 'users_address.province_id')
-            ->get();
+            ->leftJoin('province', 'province.id', '=', 'users_address.province_id');
 
-        return $data;
+            if (isset($params['user_id']) && !empty($params['user_id'])) {
+                $query->where('users_address.user_id', '=', $params['user_id']);
+            }
+
+        return $query->get();
+    }
+
+    public function getAddressById($id) {
+        return DB::table('users_address')->where('id', $id)->first();
     }
 
     public function checkAddress($params) {
@@ -66,16 +75,17 @@ class Address extends Model
     }
 
     public function updateAddress($params) {
+        $id = $params['id'];
         $payload = $params;
         unset($payload['id']);
-        return DB::table('users_address')->where(['id' => $params['id']])->update($params);
+
+        return DB::table('users_address')->where(['id' => $id])->update($payload);
     }
 
     public function changeAddress($params) {
-        $payload['user_id'] = $params['user_id'];
-        $payload['product_id'] = $params['product_id'];
-
-        return DB::table('users_address')->where($payload)->update(['quantity' => $params['quantity']]);
+        $deactivated = DB::table('users_address')->where('active', 1)->update(['active' => 0]);
+        $activated = DB::table('users_address')->where('id', $params['id'])->update(['active' => 1]);
+        return $activated;
     }
 
     public function deleteAddress($params) {
