@@ -2,53 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use App\Models\Cart;
+use App\Models\Address;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 
-class CartController extends Controller
+class AddressController extends Controller
 {
-    protected $cart;
+    protected $address;
 
     public function __construct()
     {
-        $this->cart = new Cart();
+        $this->address = new Address();
     }
 
-    public function getCart(Request $request) {
+    public function getAddress(Request $request) {
         $params = $request->all();
-        $data = $this->cart->getCart($params);
+        $data = $this->address->getAddress($params);
 
         return response()->json([
             'data' => $data,
             'status_code' => 200, 
-            'message' => 'Successfully added to cart'
+            'message' => 'Successfully show list address'
         ], 200);
     }
 
-    public function addCart(Request $request) {
+    public function addAddress(Request $request) {
         $params = $request->all();
 
-        $found = $this->cart->checkCart($params);
+        $found = $this->address->checkAddress($params);
 
         if (isset($found) && !empty($found)) {
             $params['quantity'] += $found->quantity;
-            $model = $this->cart->updateCart($params);
+            $model = $this->address->updateAddress($params);
         } else {
-            $model = $this->cart->insertCart($params);
+            $model = $this->address->insertAddress($params);
         }
 
         if ($model === true || $model === 1) {
-            return response()->json(['status_code' => 200, 'message' => 'Successfully added to cart'], 200);
+            return response()->json(['status_code' => 200, 'message' => 'Successfully added to address'], 200);
         }
 
         return response()->json(['status_code' => 422, 'message' => 'An error occurred on the server'], 422);
     }
 
-    public function updateCart(Request $request) {
+    public function updateAddress(Request $request) {
         $params = $request->all();
-        $model = $this->cart->changeCart($params);
+        $model = $this->address->changeAddress($params);
 
         if ($model === true || $model === 1) {
             return response()->json(['status_code' => 200, 'message' => 'Successfully change quantity'], 200);
@@ -57,12 +55,12 @@ class CartController extends Controller
         return response()->json(['status_code' => 422, 'message' => 'An error occurred on the server'], 422);
     }
 
-    public function deleteCart(Request $request) {
+    public function deleteAddress(Request $request) {
         $params = $request->all();
-        $model = $this->cart->deleteCart($params);
+        $model = $this->address->deleteAddress($params);
 
         if ($model === true || $model === 1) {
-            return response()->json(['status_code' => 200, 'message' => 'Successfully delete cart'], 200);
+            return response()->json(['status_code' => 200, 'message' => 'Successfully delete address'], 200);
         }
 
         return response()->json(['status_code' => 422, 'message' => 'An error occurred on the server'], 422);
