@@ -23,6 +23,7 @@ use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\WidgetController;
+use App\Http\Controllers\CartController;
 use App\Models\Donations;
 use Illuminate\Support\Facades\Artisan;
 
@@ -48,7 +49,6 @@ Route::get('/route-cache', function() {
 
     return response(['Berhasil melakukan optimasi cache']);
 });
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
     Route::get('/detail-event/{id}', [DashboardController::class, 'getDetailHistoryEvent'])->middleware('auth');
@@ -280,5 +280,7 @@ Route::prefix('api')->group(function (){
 
             Route::get('/cronjob', [SiteController::class, 'cronjob'])->name('cronjob');
         });
+
+
     });
 });
