@@ -27,7 +27,8 @@ class DashboardController extends Controller
             $user = User::find($value->created_by);
             $tbl = DB::table($value->ref_name)->find($value->ref_id);
             $value->date_convert = date('F d, Y', strtotime($value->created_at));
-            $value->log = 'User ' . $user->name . ' ' . $value->notes;
+            // $value->log = 'User ' . $user->name . ' ' . $value->notes;
+            $value->log = 'User ' . $value->notes;
         }
 
         $total_nominal = Donations::query()->where('transaction_status', 'Paid')->sum('total_donation');

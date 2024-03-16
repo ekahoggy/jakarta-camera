@@ -61,11 +61,9 @@ class PromoController extends Controller
                 ];
             }
 
-            DB::table('m_promo_det')->insert($detail);
-            // PromoDetail::insert($detail);
+            DB::table('m_promo_detail')->insert($detail);
 
-            //log user
-            $log = [
+           $log = [
                 'ref_name'  => 'm_promo',
                 'ref_id'    => $payload['id'],
                 'notes'     => 'menambahkan promo ' + $payload['kode'],
