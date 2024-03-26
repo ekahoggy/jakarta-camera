@@ -264,7 +264,7 @@ Route::prefix('api')->group(function (){
             Route::get('/widgetPageDonasi', [SiteController::class, 'widgetPageDonasi'])->name('widgetPageDonasi');
 
             Route::get('/country', [SiteController::class, 'country'])->name('country');
-            Route::get('/city', [SiteController::class, 'city'])->name('city');
+            Route::get('/citys', [SiteController::class, 'citys'])->name('citys');
             Route::get('/place', [SiteController::class, 'place'])->name('place');
             Route::get('/widget', [SiteController::class, 'widget'])->name('widget');
             Route::get('/widgetSetting', [SiteController::class, 'settingWidget'])->name('settingWidget');
